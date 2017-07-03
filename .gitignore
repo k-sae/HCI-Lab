@@ -1,10 +1,14 @@
 *.class
 .idea/
-*sln
+*.sln
 bin/
 out/
 debug/
+Debug/
+.Vs/
 .vs/
+15v/
+
 .obj/
 config.txt
 cache/
