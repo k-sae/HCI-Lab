@@ -4,6 +4,6 @@ from HighestIntensity import *
 highestIntensity = HighestIntensity('a.jpg')
 highestIntensity.showImage()
 
-#From an camera
+#From a camera
 #highestIntensity.setStream(1)
 #highestIntensity.openStream()
