@@ -2,12 +2,27 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "iostream"
-#include<Windows.h>
+#include "guiclass.h"
 using namespace cv;
 using namespace std;
-int main()
+int main() 
 {
 	
+	Mat image = imread("newback.png", CV_LOAD_IMAGE_COLOR);
+	Rect button,button2;
+	string buttonText("play as cop");
+	string buttonText2("play as theif");
+    button= Rect(0,500,image.cols, 50);
+	button2 = Rect(0, 600, image.cols, 50);
+	image(button) = Vec3b(200,200,200);
+	image(button2) = Vec3b(200, 200, 200);
+	putText(image, buttonText, Point(button.width*0.40, 500+button.height*0.5), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 0));
+	putText(image, buttonText2, Point(button.width*0.40,600 + button.height*0.5), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 0));
+	namedWindow("Display window", CV_WINDOW_AUTOSIZE);
+	imshow("Display window", image);
+    waitKey();
+
+    return 0;
 }
 // TODO 
 //1/ start menu

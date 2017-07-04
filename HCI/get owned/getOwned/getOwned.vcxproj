@@ -145,7 +145,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="guiclass.cpp" />
+    <ClCompile Include="person.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="theives.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="guiclass.h" />
+    <ClInclude Include="person.h" />
+    <ClInclude Include="theives.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
