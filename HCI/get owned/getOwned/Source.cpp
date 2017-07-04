@@ -2,19 +2,23 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "iostream"
+#include <thread>
 #include "guiclass.h"
 using namespace cv;
 using namespace std;
-
 class theif{
 
 };
+class cop {
 
-
+};
 Mat image;
 string winName = "desplay window";
 Rect button, button2;
 int level=0;
+void backgroundfilter() {
+	
+}
 void Startgame() {
 	Mat frame;
 	double minVal;
@@ -37,8 +41,12 @@ void Startgame() {
 		}
 		cvtColor(frame, gray, CV_BGR2GRAY);
 		minMaxLoc(gray, &minVal, &maxVal, &minLoc, &maxLoc);
-		circle(frame, maxLoc, 5, (255, 0, 0), 2);
-		imshow("displaywindow", frame);
+		Mat dark;
+		threshold(gray, dark, 255, 255, 3);
+		circle(dark, maxLoc, 5, (0, 0, 255), 2);
+		
+	//	cvtColor(frame, frame, CV_BGR2GRAY);
+		imshow("displaywindow", dark);	
 		if (waitKey(30) == 27)
 		{
 			cout << "esc key is pressed by user" << endl;
@@ -46,6 +54,7 @@ void Startgame() {
 		}
 	}
 	waitKey(0);
+	
 }
 void callBackFunc(int event, int x, int y, int flags, void* userdata)
 {
