@@ -7,7 +7,19 @@ using namespace cv;
 using namespace std;
 int main()
 {
-	Mat image;
+	
+}
+// TODO 
+//1/ start menu
+//2/  create class draw shooting (cops// thieives)
+//3/  git poistion of lazer and remove them when lazer touch 
+//4/ add 3 points in class (head/body/chest) to kill
+//5/ add by random and lvls 
+//6/ add theives mode 
+// how we gona work we will make windows as if  its wall  when  we touch postion relative in screen the target vanish 
+/* 
+// capture lazer for later 
+Mat image;
 	double minVal;
 	double maxVal;
 	Point minLoc;
@@ -38,5 +50,4 @@ int main()
 		}
 	}
 	waitKey(0);
-	return 0;
-}
+	return 0;*/
