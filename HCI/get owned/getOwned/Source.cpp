@@ -40,13 +40,15 @@ void Startgame() {
 	Point minLoc;
 	Point maxLoc;
 	Mat gray;
-	theif the[10];
+	vector<theif>myvector;
 	VideoCapture cap(0);
 	int width = cap.get(3);
 	int	height = cap.get(4);
+	theif the;
 	for (int i = 0; i < level; i++) {
-		the[i].setlocx(rand() % (width - 75 + 1));
-		the[i].setlocy(rand() % (height- 75 + 1));
+		the.setlocx(rand() % (width - 75 + 1));
+		the.setlocy(rand() % (height- 75 + 1));
+		myvector.push_back(the);
 
 	}
 	if (!cap.isOpened())
@@ -66,16 +68,17 @@ void Startgame() {
 		Mat dark;
 		threshold(gray, dark, 255, 255, 3);
 		circle(dark, maxLoc, 5, (0, 0, 255), 2);
-		Mat theifimg = the[0].getimg();
-		for (int i = 0; i <level; i++) {
-			theifimg.copyTo(dark(Rect(the[i].getlocx(), the[i].getlocy(), theifimg.cols, theifimg.rows)));
+		Mat theifimg = myvector[0].getimg();
+		for (int i = 0; i < myvector.size(); i++) {
+			theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg.cols, theifimg.rows)));
 		}	//	cvtColor(frame, frame, CV_BGR2GRAY);
 		
 		imshow("displaywindow", dark);
-		for (int i = 0; i < level; i++) {
-			if (maxLoc.x < (the[i].getlocx() + (.5 * 75)) && maxLoc.x >(the[i].getlocx() - (.5 * 75)) &&
-				maxLoc.y < (the[i].getlocy() + (.5 * 75)) && maxLoc.y >(the[i].getlocy() - (.5 * 75))) {
-				cout << "touch"<< i;
+		for (int i = 0; i < myvector.size(); i++) {
+			if (maxLoc.x < (myvector[i].getlocx() + (.5 * 75)) && maxLoc.x >(myvector[i].getlocx() - (.5 * 75)) &&
+				maxLoc.y < (myvector[i].getlocy() + (.5 * 75)) && maxLoc.y >(myvector[i].getlocy() - (.5 * 75))) {
+				myvector.erase(myvector.begin() + i);
+				break;
 			}
 		}
 		if (waitKey(30) == 27)
