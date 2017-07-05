@@ -70,10 +70,14 @@ void Startgame() {
 		for (int i = 0; i <level; i++) {
 			theifimg.copyTo(dark(Rect(the[i].getlocx(), the[i].getlocy(), theifimg.cols, theifimg.rows)));
 		}	//	cvtColor(frame, frame, CV_BGR2GRAY);
-		for (int i = 0; i < level; i++) {
-			if (maxLoc == )
-		}
+		
 		imshow("displaywindow", dark);
+		for (int i = 0; i < level; i++) {
+			if (maxLoc.x < (the[i].getlocx() + (.5 * 75)) && maxLoc.x >(the[i].getlocx() - (.5 * 75)) &&
+				maxLoc.y < (the[i].getlocy() + (.5 * 75)) && maxLoc.y >(the[i].getlocy() - (.5 * 75))) {
+				cout << "touch"<< i;
+			}
+		}
 		if (waitKey(30) == 27)
 		{
 			cout << "esc key is pressed by user" << endl;
