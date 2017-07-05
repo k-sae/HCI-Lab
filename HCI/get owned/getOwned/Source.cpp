@@ -68,20 +68,22 @@ void Startgame() {
 		minMaxLoc(gray, &minVal, &maxVal, &minLoc, &maxLoc);
 		Mat dark;
 		threshold(gray, dark, 255, 255, 3);
-		circle(dark, maxLoc, 5, (0, 0, 255), 2);
 		Mat theifimg = myvector[0].getimg();
 		for (int i = 0; i < myvector.size(); i++) {
 			theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg.cols, theifimg.rows)));
 		}	//	cvtColor(frame, frame, CV_BGR2GRAY);
-		
-		imshow("displaywindow", dark);
-		for (int i = 0; i < myvector.size(); i++) {
-			if (maxLoc.x < (myvector[i].getlocx() + (.5 * 75)) && maxLoc.x >(myvector[i].getlocx() - (.5 * 75)) &&
-				maxLoc.y < (myvector[i].getlocy() + (.5 * 75)) && maxLoc.y >(myvector[i].getlocy() - (.5 * 75))) {
-				myvector.erase(myvector.begin() + i);
-				score++;
+
+		if (maxVal > 240) {
+			circle(dark, maxLoc, 5, (0, 0, 255), 2);
+			for (int i = 0; i < myvector.size(); i++) {
+				if (maxLoc.x < (myvector[i].getlocx() + (.5 * 75)) && maxLoc.x >(myvector[i].getlocx() - (.5 * 75)) &&
+					maxLoc.y < (myvector[i].getlocy() + (.5 * 75)) && maxLoc.y >(myvector[i].getlocy() - (.5 * 75))) {
+					myvector.erase(myvector.begin() + i);
+					score++;
+				}
 			}
 		}
+		imshow("displaywindow", dark);
 		if (myvector.size() == 0) {
 			level += 1;
 			for (int i = 0; i < level; i++) {
