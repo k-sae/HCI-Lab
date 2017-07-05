@@ -32,7 +32,6 @@ public:
 Mat image;
 string winName = "desplay window";
 Rect button, button2;
-int level = 10;
 void Startgame() {
 	Mat frame;
 	double minVal;
@@ -40,6 +39,8 @@ void Startgame() {
 	Point minLoc;
 	Point maxLoc;
 	Mat gray;
+	int level = 1;
+	int score = 0;
 	vector<theif>myvector;
 	VideoCapture cap(0);
 	int width = cap.get(3);
@@ -78,12 +79,21 @@ void Startgame() {
 			if (maxLoc.x < (myvector[i].getlocx() + (.5 * 75)) && maxLoc.x >(myvector[i].getlocx() - (.5 * 75)) &&
 				maxLoc.y < (myvector[i].getlocy() + (.5 * 75)) && maxLoc.y >(myvector[i].getlocy() - (.5 * 75))) {
 				myvector.erase(myvector.begin() + i);
-				break;
+				score++;
 			}
 		}
-		if (waitKey(30) == 27)
+		if (myvector.size() == 0) {
+			level += 1;
+			for (int i = 0; i < level; i++) {
+				the.setlocx(rand() % (width - 75 + 1));
+				the.setlocy(rand() % (height - 75 + 1));
+				myvector.push_back(the);
+
+			}
+		}
+		if (waitKey(30) == 27||level==10)
 		{
-			cout << "esc key is pressed by user" << endl;
+			cout << "esc key is pressed by user" <<score << endl;
 			break;
 		}
 	}
