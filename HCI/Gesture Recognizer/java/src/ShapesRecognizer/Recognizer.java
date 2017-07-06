@@ -315,10 +315,10 @@ public class Recognizer {
         double maxY = -Infinity;
 
         for (int i = 1; i < points.length; i++) {
-            minX = Math.min(points[i].X, minX);
-            maxX = Math.max(points[i].X, maxX);
-            minY = Math.min(points[i].Y, minY);
-            maxY = Math.max(points[i].Y, maxY);
+            minX = Math.min(points[i].x, minX);
+            maxX = Math.max(points[i].x, maxX);
+            minY = Math.min(points[i].y, minY);
+            maxY = Math.max(points[i].y, maxY);
         }
         return new Rectangle(minX, minY, maxX - minX, maxY - minY);
     }
@@ -326,11 +326,11 @@ public class Recognizer {
     Point Centroid(Point[] points) {
         Point centriod = new Point(0.0, 0.0);
         for (int i = 1; i < points.length; i++) {
-            centriod.X += points[i].X;
-            centriod.Y += points[i].Y;
+            centriod.x += points[i].x;
+            centriod.y += points[i].y;
         }
-        centriod.X /= points.length;
-        centriod.Y /= points.length;
+        centriod.x /= points.length;
+        centriod.y /= points.length;
         return centriod;
     }
 
@@ -341,8 +341,8 @@ public class Recognizer {
 
         ArrayList<Point> newpoints = new ArrayList<>();
         for (int i = 0; i < points.length; i++) {
-            double qx = (points[i].X - c.X) * Cos - (points[i].Y - c.Y) * Sin + c.X;
-            double qy = (points[i].X - c.X) * Sin + (points[i].Y - c.Y) * Cos + c.Y;
+            double qx = (points[i].x - c.x) * Cos - (points[i].y - c.y) * Sin + c.x;
+            double qy = (points[i].x - c.x) * Sin + (points[i].y - c.y) * Cos + c.y;
             newpoints.add(new Point(qx, qy));
         }
         return Arrays.copyOf(newpoints.toArray(), newpoints.size(),Point[].class);
@@ -350,7 +350,7 @@ public class Recognizer {
 
     Point[] RotateToZero(Point[] points) {
         Point c = Centroid(points);
-        double theta = Math.atan2(c.Y - points[0].Y, c.X - points[0].X);
+        double theta = Math.atan2(c.y - points[0].y, c.x - points[0].x);
         return RotateBy(points, -theta);
     }
 
@@ -373,8 +373,8 @@ public class Recognizer {
             Point pt2 = (Point) stack.peek();
             double d = pt1.distance(pt2);
             if ((D + d) >= I) {
-                double qx = pt1.X + ((I - D) / d) * (pt2.X - pt1.X);
-                double qy = pt1.Y + ((I - D) / d) * (pt2.Y - pt1.Y);
+                double qx = pt1.x + ((I - D) / d) * (pt2.x - pt1.x);
+                double qy = pt1.y + ((I - D) / d) * (pt2.y - pt1.y);
                 Point q = new Point(qx, qy);
                 newpoints.add(q);
                 stack.push(q);
@@ -395,8 +395,8 @@ public class Recognizer {
         Rectangle B = BoundingBox(points);
         ArrayList<Point> newpoints = new ArrayList<>();
         for (int i = 0; i < points.length; i++) {
-            double qx = points[i].X * (sz / B.Width);
-            double qy = points[i].Y * (sz / B.Height);
+            double qx = points[i].x * (sz / B.Width);
+            double qy = points[i].y * (sz / B.Height);
             newpoints.add(new Point(qx, qy));
         }
         return Arrays.copyOf(newpoints.toArray(), newpoints.size(),Point[].class);
@@ -436,8 +436,8 @@ public class Recognizer {
         Point c = Centroid(points);
         ArrayList<Point> newpoints = new ArrayList<>();
         for (int i = -0; i < points.length; i++) {
-            double qx = points[i].X - c.X;
-            double qy = points[i].Y - c.Y;
+            double qx = points[i].x - c.x;
+            double qy = points[i].y - c.y;
             newpoints.add( new Point(qx, qy));
         }
         return Arrays.copyOf(newpoints.toArray(), newpoints.size(),Point[].class);
