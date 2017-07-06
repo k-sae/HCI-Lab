@@ -25,6 +25,8 @@ int main()
 	}
 	Path2D path;
 	GeometricRecognizer geo;
+	int lastframe = 0;
+
 	geo.loadTemplates();
 	while (true) {
 		double max;
@@ -34,11 +36,16 @@ int main()
 		Mat cameraFrame;
 		Mat gray;
 		
+		
 		stream.read(cameraFrame);
 		cvtColor(cameraFrame, gray, CV_BGR2GRAY);
 		minMaxLoc(gray, &min, &max, &min_loc, &max_loc);
+		if (lastframe < max - 10) {
+			cout << geo.recognize(path).name << endl;
+		}
 		if (max >= 254) {
 			path.push_back(Point2D(max_loc.x, max_loc.y));
+			lastframe = max;
 		}
 		Point x;
 		for (int i = 0;i < path.size();i++) {
@@ -47,7 +54,6 @@ int main()
 			circle(cameraFrame,x ,2, (255, 255, 255), 6);
 		}			
 		if(!path.empty())				  
-		cout << geo.recognize(path).name << endl;
 		imshow("cam", cameraFrame);
 		if (waitKey(10) == 27) break;	 // Esc button
 	}  
