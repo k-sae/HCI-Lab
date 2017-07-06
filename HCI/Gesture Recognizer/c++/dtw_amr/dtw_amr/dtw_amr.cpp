@@ -40,18 +40,14 @@ int main()
 		if (max >= 254) {
 			path.push_back(Point2D(max_loc.x, max_loc.y));
 		}
-		Point x,y;
-		for (int i = 0;i < path.size()-1;i++) {
+		Point x;
+		for (int i = 0;i < path.size();i++) {
 			x.x = path[i].x;
 			x.y = path[i].y;
-			if (path.size() > 3) {
-				y.x = path[i+1].x;
-				y.y = path[i+1].y;
-				circle(cameraFrame, x, 1, (255, 255, 255), 2);
-			}
-		}
-		//if(!path.empty())
-		//cout << geo.recognize(path).name << endl;
+			circle(cameraFrame,x ,2, (255, 255, 255), 6);
+		}			
+		if(!path.empty())				  
+		cout << geo.recognize(path).name << endl;
 		imshow("cam", cameraFrame);
 		if (waitKey(10) == 27) break;	 // Esc button
 	}  

@@ -49,7 +49,7 @@ namespace DollarRecognizer
 		addTemplate("LeftToRightLine", samples.getGestureLeftToRightLine());
 		addTemplate("LineDownDiagonal", samples.getGestureLineDownDiagonal());
 		addTemplate("Pigtail", samples.getGesturePigtail());
-		addTemplate("QuestionMark", samples.getGestureQuestionMark());
+		//addTemplate("QuestionMark", samples.getGestureQuestionMark());
 		addTemplate("Rectangle", samples.getGestureRectangle());
 		//addTemplate("RightCurlyBrace", samples.getGestureRightCurlyBrace());
 		addTemplate("RightSquareBracket", samples.getGestureRightSquareBracket());
