@@ -5,10 +5,11 @@ import numpy as np
 #TODO Figure how to recognize Crossing Double Times
 recognizer = DTWRecognizer()
 #Using Laser
-'''
-cap = cv2.VideoCapture(1)
+
+cap = cv2.VideoCapture(0)
 points = np.array([], np.int32)
 name = "Draw a gesture"
+flage =False
 while(True):
     ret, frame = cap.read()
     frame = cv2.flip(frame,1)
@@ -29,6 +30,13 @@ while(True):
     elif points.size > 10:
         points = points.reshape(-1, 2,1)
         name = recognizer.Recognize(list(points)).Name
+        if flage ==  True :
+                if(name == "Line"):
+                   name = "Double Time"
+                flage =False
+        elif name == "Line" :
+                flage =True  
+            
         print(recognizer.Recognize(list(points)).Score)
         points = np.array([], np.int32)
     else:
@@ -38,20 +46,22 @@ while(True):
     cv2.putText(frame, name, (20, 440), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
     cv2.putText(frame,"Press 'q' to Quit",(20,40),cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2, cv2.LINE_AA)
     cv2.imshow('Stream',frame)
+    if ( name  != "Few points, or unrecognized shape") :
+        cv2.waitKey(700)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
 cv2.destroyAllWindows()
 
-'''
-#Using Mouse
 
+#Using Mouse
+'''
 drawing = False
 flage = False
 points = np.array([], np.int32)
 def draw_circle(event,x,y,flags,param):
-    global drawing,mode,points,img,pre_name , last_point, flage
+    global drawing,mode,points,img, flage
      
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
@@ -69,13 +79,13 @@ def draw_circle(event,x,y,flags,param):
         if points.size > 10:
             points = points.reshape(-1, 2, 1)
             Name = recognizer.Recognize(list(points)).Name
-            if flage == True :
-                if(pre_name == "Line"and Name ==pre_name):
+            if flage ==  True :
+                if(Name == "Line"):
                    Name = "Double Time"
-                    
-            else:
-                flage = True
-            pre_name = Name
+                flage =False
+            elif Name == "Line" :
+                   flage =True  
+            
             font = cv2.FONT_HERSHEY_SIMPLEX
             cv2.putText(img,Name ,(600-(len(Name)*15),600), font, 2,(255,255,255),3,cv2.LINE_AA)
             print(recognizer.Recognize(list(points)).Score)
@@ -93,3 +103,4 @@ while(True):
 
 cv2.destroyAllWindows()
 
+'''
