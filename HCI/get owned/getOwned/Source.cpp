@@ -46,6 +46,7 @@ void Startgame() {
 	int width = cap.get(3);
 	int	height = cap.get(4);
 	theif the;
+	
 	for (int i = 0; i < level; i++) {
 		the.setlocx(rand() % (width - 75 + 1));
 		the.setlocy(rand() % (height- 75 + 1));
@@ -72,7 +73,15 @@ void Startgame() {
 		for (int i = 0; i < myvector.size(); i++) {
 			theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg.cols, theifimg.rows)));
 		}	//	cvtColor(frame, frame, CV_BGR2GRAY);
-
+		string livesStr = " score "+ to_string(score)+" level" +to_string(level);
+		putText(dark,
+			livesStr,
+			Point(150, 75), // Coordinates
+			FONT_HERSHEY_PLAIN, // Font
+			2.0, // Scale. 2.0 = 2x bigger
+			Scalar(255, 0, 0), // Color
+			1, // Thickness
+			CV_AA);
 		if (maxVal > 240) {
 			circle(dark, maxLoc, 5, (0, 0, 255), 2);
 			for (int i = 0; i < myvector.size(); i++) {
@@ -92,7 +101,7 @@ void Startgame() {
 				myvector.push_back(the);
 
 			}
-		}
+		
 		if (waitKey(30) == 27||level==10)
 		{
 			cout << "esc key is pressed by user" <<score << endl;
