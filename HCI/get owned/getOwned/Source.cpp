@@ -101,7 +101,7 @@ void Startgame() {
 				myvector.push_back(the);
 
 			}
-		
+		}
 		if (waitKey(30) == 27||level==10)
 		{
 			cout << "esc key is pressed by user" <<score << endl;
