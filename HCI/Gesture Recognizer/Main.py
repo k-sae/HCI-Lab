@@ -48,11 +48,11 @@ cv2.destroyAllWindows()
 #Using Mouse
 
 drawing = False
-
+flage = False
 points = np.array([], np.int32)
 def draw_circle(event,x,y,flags,param):
-    global drawing,mode,points,img
-
+    global drawing,mode,points,img,pre_name , last_point, flage
+     
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
         img = np.zeros((650, 1300, 3), np.uint8)
@@ -62,13 +62,20 @@ def draw_circle(event,x,y,flags,param):
             points = np.append(points, (x,y))
             points = points.reshape(-1, 1, 2)
             cv2.polylines(img, [points], False, (0, 0, 255), 5)
-            #print ([points],end='')
+            
 
     elif event == cv2.EVENT_LBUTTONUP:
         drawing = False
         if points.size > 10:
             points = points.reshape(-1, 2, 1)
             Name = recognizer.Recognize(list(points)).Name
+            if flage == True :
+                if(pre_name == "Line"and Name ==pre_name):
+                   Name = "Double Time"
+                    
+            else:
+                flage = True
+            pre_name = Name
             font = cv2.FONT_HERSHEY_SIMPLEX
             cv2.putText(img,Name ,(600-(len(Name)*15),600), font, 2,(255,255,255),3,cv2.LINE_AA)
             print(recognizer.Recognize(list(points)).Score)
