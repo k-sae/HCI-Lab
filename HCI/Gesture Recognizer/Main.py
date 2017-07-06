@@ -55,13 +55,14 @@ def draw_circle(event,x,y,flags,param):
 
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
-        img = np.zeros((512, 512, 3), np.uint8)
+        img = np.zeros((650, 1300, 3), np.uint8)
 
     elif event == cv2.EVENT_MOUSEMOVE:
         if drawing == True:
             points = np.append(points, (x,y))
             points = points.reshape(-1, 1, 2)
             cv2.polylines(img, [points], False, (0, 0, 255), 5)
+            #print ([points],end='')
 
     elif event == cv2.EVENT_LBUTTONUP:
         drawing = False
@@ -69,7 +70,7 @@ def draw_circle(event,x,y,flags,param):
             points = points.reshape(-1, 2, 1)
             Name = recognizer.Recognize(list(points)).Name
             font = cv2.FONT_HERSHEY_SIMPLEX
-            cv2.putText(img,Name ,(230-(len(Name)*3),500), font, 1,(255,255,255),2,cv2.LINE_AA)
+            cv2.putText(img,Name ,(600-(len(Name)*15),600), font, 2,(255,255,255),3,cv2.LINE_AA)
             print(recognizer.Recognize(list(points)).Score)
 
         points = np.array([], np.int32)
