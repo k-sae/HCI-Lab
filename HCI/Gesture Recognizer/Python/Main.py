@@ -5,7 +5,7 @@ import numpy as np
 
 recognizer = DTWRecognizer()
 #Using Laser
-
+'''
 cap = cv2.VideoCapture(0)
 points = np.array([], np.int32)
 name = "Draw a gesture"
@@ -56,9 +56,9 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 
-
-#Using Mouse
 '''
+#Using Mouse
+
 drawing = False
 flag = False
 points = np.array([], np.int32)
@@ -99,4 +99,3 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cv2.destroyAllWindows()
-'''
