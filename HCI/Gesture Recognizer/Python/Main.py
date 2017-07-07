@@ -88,6 +88,7 @@ def draw_circle(event, x, y, flags, param):
                 flag = True
             
             font = cv2.FONT_HERSHEY_SIMPLEX
+            print([points])  
             cv2.putText(img, name + '(' + ("%0.2f" % score) + ')', (600-(len(name)*15 + 50), 600), font, 2, (255, 255, 255), 3, cv2.LINE_AA)
         points = np.array([], np.int32)
 img = np.zeros((720, 1280, 3), np.uint8)
