@@ -1,16 +1,18 @@
 package View;
 import LaserDetector.LaserDetector;
 import LaserDetector.OnFrameProcessedListener;
+import Model.FileManager;
 import ShapesRecognizer.Recognizer;
 import ShapesRecognizer.Result;
 import TimeOuter.TimeOuter;
+import com.google.gson.Gson;
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -56,6 +58,14 @@ public class Main extends Application implements OnFrameProcessedListener {
         primaryStage.setTitle("Capture Color");
         primaryStage.setScene(new Scene(root, 1280, 400));
         startLaserDetection();
+        if (FileManager.getInstance().exists("Templates.json"))
+        {
+            recognizer = new Gson().fromJson(FileManager.getInstance().read("Templates.json"),Recognizer.class);
+        }
+        else
+        {
+            recognizer = new Recognizer();
+        }
         primaryStage.show();
     }
 

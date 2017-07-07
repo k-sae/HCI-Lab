@@ -3,6 +3,8 @@ package ShapesRecognizer;// Dollar, from http://depts.washington.edu/aimgroup/pr
 //
 
 
+import com.sun.xml.internal.ws.developer.Serialization;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
@@ -12,17 +14,14 @@ import java.util.Stack;
 public class Recognizer {
 
 
-    int NumTemplates = 16;
-    int NumPoints = 64;
-    double SquareSize = 250.0;
-    double HalfDiagonal = 0.5 *  Math.sqrt(250.0 * 250.0 + 250.0 * 250.0);
-    double AngleRange = 45.0;
-    double AnglePrecision = 2.0;
-    double Phi = 0.5 * (-1.0 + Math.sqrt(5.0)); // Golden Ratio
+   private transient int NumTemplates = 16;
+    private transient int NumPoints = 64;
+    private transient double SquareSize = 250.0;
+    private transient double HalfDiagonal = 0.5 *  Math.sqrt(250.0 * 250.0 + 250.0 * 250.0);
+    private transient double AngleRange = 45.0;
+    private transient double AnglePrecision = 2.0;
+    private transient double Phi = 0.5 * (-1.0 + Math.sqrt(5.0)); // Golden Ratio
 
-    Recognizer recognizer;
-//    Recorder recorder;
-    Result result = null;
 //    PFont font;
 //
 //    void setup() {
@@ -55,7 +54,7 @@ public class Recognizer {
 
     // simple class for recording points
 
-    double Infinity = 1e9;
+   private transient double Infinity = 1e9;
 
 
 // What follows here is a translation of the javascript to java.
@@ -66,7 +65,7 @@ public class Recognizer {
 
     // A template holds a name and a set of reduced points that represent
 // a single gesture.
-    class Template {
+    private  class Template {
         String Name;
         Point[] Points;
 
@@ -81,7 +80,7 @@ public class Recognizer {
 
 
 
-        ArrayList<Template> Templates =  new ArrayList<>();
+       public ArrayList<Template> Templates =  new ArrayList<>();
 
         public Recognizer() {
 
@@ -273,7 +272,7 @@ public class Recognizer {
             }
         }
 
-        int AddTemplate(String name, Point[] points) {
+    private  int AddTemplate(String name, Point[] points) {
             Templates.add(new Template(name, points));
             int num = 0;
             for (int i = 0; i < Templates.size(); i++) {
@@ -288,7 +287,7 @@ public class Recognizer {
 //            Templates = (Template[]) subset(Templates, 0, NumTemplates);
 //        }
 
-    double PathLength(Point[] points) {
+    private  double PathLength(Point[] points) {
         double d = 0.0;
         for (int i = 1; i < points.length; i++) {
             d += points[i - 1].distance(points[i]);
@@ -296,7 +295,7 @@ public class Recognizer {
         return d;
     }
 
-    double PathDistance(Point[] pts1, Point[] pts2) {
+    private  double PathDistance(Point[] pts1, Point[] pts2) {
         if (pts1.length != pts2.length) {
            System.out.println("Lengths differ. " + pts1.length + " != " + pts2.length);
             return Infinity;
@@ -308,7 +307,7 @@ public class Recognizer {
         return d / (double) pts1.length;
     }
 
-    Rectangle BoundingBox(Point[] points) {
+    private  Rectangle BoundingBox(Point[] points) {
         double minX = Infinity;
         double maxX = -Infinity;
         double minY = Infinity;
@@ -323,7 +322,7 @@ public class Recognizer {
         return new Rectangle(minX, minY, maxX - minX, maxY - minY);
     }
 
-    Point Centroid(Point[] points) {
+    private Point Centroid(Point[] points) {
         Point centriod = new Point(0.0, 0.0);
         for (int i = 1; i < points.length; i++) {
             centriod.x += points[i].x;
@@ -334,7 +333,7 @@ public class Recognizer {
         return centriod;
     }
 
-    Point[] RotateBy(Point[] points, double theta) {
+    private  Point[] RotateBy(Point[] points, double theta) {
         Point c = Centroid(points);
         double Cos = Math.cos(theta);
         double Sin = Math.sin(theta);
@@ -348,13 +347,13 @@ public class Recognizer {
         return Arrays.copyOf(newpoints.toArray(), newpoints.size(),Point[].class);
     }
 
-    Point[] RotateToZero(Point[] points) {
+    private  Point[] RotateToZero(Point[] points) {
         Point c = Centroid(points);
         double theta = Math.atan2(c.y - points[0].y, c.x - points[0].x);
         return RotateBy(points, -theta);
     }
 
-    Point[] Resample(Point[] points, int n) {
+    private Point[] Resample(Point[] points, int n) {
         double I = PathLength(points) / ((double) n - 1.0);
         double D = 0.0;
         ArrayList<Point> newpoints = new ArrayList<>();
@@ -391,7 +390,7 @@ public class Recognizer {
 
     }
 
-    Point[] ScaleToSquare(Point[] points, double sz) {
+    private Point[] ScaleToSquare(Point[] points, double sz) {
         Rectangle B = BoundingBox(points);
         ArrayList<Point> newpoints = new ArrayList<>();
         for (int i = 0; i < points.length; i++) {
@@ -402,7 +401,7 @@ public class Recognizer {
         return Arrays.copyOf(newpoints.toArray(), newpoints.size(),Point[].class);
     }
 
-    double DistanceAtBestAngle(Point[] points, Template T, double a, double b, double threshold) {
+    private double DistanceAtBestAngle(Point[] points, Template T, double a, double b, double threshold) {
         double x1 = Phi * a + (1.0 - Phi) * b;
         double f1 = DistanceAtAngle(points, T, x1);
         double x2 = (1.0 - Phi) * a + Phi * b;
@@ -426,13 +425,13 @@ public class Recognizer {
     }
 
 
-    double DistanceAtAngle(Point[] points, Template T, double theta) {
+    private double DistanceAtAngle(Point[] points, Template T, double theta) {
         Point[] newpoints = RotateBy(points, theta);
         return PathDistance(newpoints, T.Points);
     }
 
 
-    Point[] TranslateToOrigin(Point[] points) {
+   private Point[] TranslateToOrigin(Point[] points) {
         Point c = Centroid(points);
         ArrayList<Point> newpoints = new ArrayList<>();
         for (int i = -0; i < points.length; i++) {
