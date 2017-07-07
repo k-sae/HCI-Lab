@@ -1,110 +1,102 @@
-// NOTE: This Code Is Encrypted 
-// Dycryption will be available at 12pm
-// u can try the java code for while till decryption
 
-wifd UKN zdgfik *
-zdgfik tm2
-zdgfik eldgp rj eg
+from DTW import *
+import cv2
+import numpy as np
 
-#KFUF Wzxliv yfn kf ivtfxezqv Tifjjzex Uflscv Kzdvj
-ivtfxezqvi = UKNIvtfxezqvi()
-#Ljzex Crjvi
+recognizer = DTWRecognizer()
+#Using Laser
 
-trg = tm2.MzuvfTrgkliv(0)
-gfzekj = eg.riirp([], eg.zek32)
-erdv = "Uirn r xvjkliv"
-wcrxv =Wrcjv
-nyzcv(Kilv):
-    ivk, wirdv = trg.ivru()
-    wirdv = tm2.wczg(wirdv,1)
+cap = cv2.VideoCapture(0)
+points = np.array([], np.int32)
+name = "Draw a gesture"
+flag = False
+score = 0
+while True:
+    ret, frame = cap.read()
+    #frame = cv2.flip(frame, 1)
 
-    yjm = tm2.tmkTfcfi(wirdv, tm2.TFCFI_SXI2YJM)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    cfnvi_ivu = eg.riirp([0,0,255])
-    lggvi_ivu = eg.riirp([255,255,255])
+    lower_red = np.array([0,0,255])
+    upper_red = np.array([255,255,255])
 
-    drjb = tm2.zeIrexv(yjm, cfnvi_ivu, lggvi_ivu)
+    mask = cv2.inRange(hsv, lower_red, upper_red)
 
-    (dzeMrc, droMrc, dzeCft, droCft) = tm2.dzeDroCft(drjb)
-    zw droMrc == 255:
-        tm2.tzitcv(wirdv, droCft, 20, (0, 0, 255), 2, tm2.CZEV_RR)
-        gfzekj = eg.rggveu(gfzekj, droCft)
-        gfzekj = gfzekj.ivjyrgv(-1,1,2)
-        tm2.gfcpczevj(wirdv, [gfzekj], Wrcjv, (0, 0, 255), 5)
-    vczw gfzekj.jzqv > 10:
-        gfzekj = gfzekj.ivjyrgv(-1, 2,1)
-        erdv = ivtfxezqvi.Ivtfxezqv(czjk(gfzekj)).Erdv
-        zw wcrxv ==  Kilv :
-                zw(erdv == "Czev"):
-                   erdv = "Uflscv Kzdv"
-                wcrxv =Wrcjv
-        vczw erdv == "Czev" :
-                wcrxv =Kilv  
-            
-        gizek(ivtfxezqvi.Ivtfxezqv(czjk(gfzekj)).Jtfiv)
-        gfzekj = eg.riirp([], eg.zek32)
-    vcjv:
-        erdv = "Wvn gfzekj, fi leivtfxezqvu jyrgv"
-        gfzekj = eg.riirp([], eg.zek32)
+    (minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(mask)
 
-    tm2.glkKvok(wirdv, erdv, (20, 440), tm2.WFEK_YVIJYVP_JZDGCVO, 1, (0, 0, 255), 2, tm2.CZEV_RR)
-    tm2.glkKvok(wirdv,"Givjj 'h' kf Hlzk",(20,40),tm2.WFEK_YVIJYVP_JZDGCVO, 1, (0,0,255), 2, tm2.CZEV_RR)
-    tm2.zdjyfn('Jkivrd',wirdv)
-    zw ( erdv  != "Wvn gfzekj, fi leivtfxezqvu jyrgv") :
-        tm2.nrzkBvp(700)
-    zw tm2.nrzkBvp(1) & 0oWW == fiu('h'):
-        sivrb
+    if maxVal == 255:
+        cv2.circle(frame, maxLoc, 20, (0, 0, 255), 2, cv2.LINE_AA)
+        points = np.append(points, maxLoc)
+        points = points.reshape(-1, 1, 2)
+        cv2.polylines(frame, [points], False, (0, 0, 255), 5)
+    elif points.size > 10:
+        points = points.reshape(-1, 2, 1)
+        result = recognizer.Recognize(list(points))
+        name = result.Name
+        score = result.Score
+        if flag:
+            if name == "Line":
+                name = "Double Crossing Time"
+            flag = False
+        elif name == "Line":
+                flag = True
 
-trg.ivcvrjv()
-tm2.uvjkifpRccNzeufnj()
+        points = np.array([], np.int32)
+    elif 0 < points.size < 10:
+        name = "Few points, or unrecognized shape"
+        score = 0
+        points = np.array([], np.int32)
+
+    cv2.putText(frame, name + '(' + ("%0.2f" % score) + ')', (20, 440), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Press 'q' to Quit", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+    cv2.imshow('Stream', frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
 
 
-#Ljzex Dfljv
+#Using Mouse
 '''
-uirnzex = Wrcjv
-wcrxv = Wrcjv
-gfzekj = eg.riirp([], eg.zek32)
-uvw uirn_tzitcv(vmvek,o,p,wcrxj,grird):
-    xcfsrc uirnzex,dfuv,gfzekj,zdx, wcrxv
+drawing = False
+flag = False
+points = np.array([], np.int32)
+def draw_circle(event, x, y, flags, param):
+    global drawing, points, img, flag
      
-    zw vmvek == tm2.VMVEK_CSLKKFEUFNE:
-        uirnzex = Kilv
-        zdx = eg.qvifj((650, 1300, 3), eg.lzek8)
-
-    vczw vmvek == tm2.VMVEK_DFLJVDFMV:
-        zw uirnzex == Kilv:
-            gfzekj = eg.rggveu(gfzekj, (o,p))
-            gfzekj = gfzekj.ivjyrgv(-1, 1, 2)
-            tm2.gfcpczevj(zdx, [gfzekj], Wrcjv, (0, 0, 255), 5)
+    if event == cv2.EVENT_LBUTTONDOWN:
+        drawing = True
+        img = np.zeros((720, 1280, 3), np.uint8)
+    elif event == cv2.EVENT_MOUSEMOVE:
+        if drawing:
+            points = np.append(points, (x, y))
+            points = points.reshape(-1, 1, 2)
+            cv2.polylines(img, [points], False, (0, 0, 255), 5)
+    elif event == cv2.EVENT_LBUTTONUP:
+        drawing = False
+        if points.size > 10:
+            points = points.reshape(-1, 2, 1)
+            result = recognizer.Recognize(list(points))
+            name = result.Name
+            score = result.Score
+            if flag:
+                if name == "Line":
+                    name = "Double Crossing Time"
+                flag = False
+            elif name == "Line":
+                flag = True
             
-
-    vczw vmvek == tm2.VMVEK_CSLKKFELG:
-        uirnzex = Wrcjv
-        zw gfzekj.jzqv > 10:
-            gfzekj = gfzekj.ivjyrgv(-1, 2, 1)
-            Erdv = ivtfxezqvi.Ivtfxezqv(czjk(gfzekj)).Erdv
-            zw wcrxv ==  Kilv :
-                zw(Erdv == "Czev"):
-                   Erdv = "Uflscv Kzdv"
-                wcrxv =Wrcjv
-            vczw Erdv == "Czev" :
-                   wcrxv =Kilv  
-            
-            wfek = tm2.WFEK_YVIJYVP_JZDGCVO
-            tm2.glkKvok(zdx,Erdv ,(600-(cve(Erdv)*15),600), wfek, 2,(255,255,255),3,tm2.CZEV_RR)
-            gizek(ivtfxezqvi.Ivtfxezqv(czjk(gfzekj)).Jtfiv)
-
-        gfzekj = eg.riirp([], eg.zek32)
-
-zdx = eg.qvifj((650,1300,3), eg.lzek8)
-tm2.erdvuNzeufn("zdrxv", tm2.NEU_GIFG_WLCCJTIVVE)
-tm2.jvkDfljvTrccsrtb('zdrxv',uirn_tzitcv)
-
-nyzcv(Kilv):
-    tm2.zdjyfn('zdrxv',zdx)
-    zw tm2.nrzkBvp(1) & 0oWW == fiu('h'):
-        sivrb
-
-tm2.uvjkifpRccNzeufnj()
-
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            cv2.putText(img, name + '(' + ("%0.2f" % score) + ')', (600-(len(name)*15 + 50), 600), font, 2, (255, 255, 255), 3, cv2.LINE_AA)
+        points = np.array([], np.int32)
+img = np.zeros((720, 1280, 3), np.uint8)
+cv2.namedWindow("Recognizer", cv2.WND_PROP_FULLSCREEN)
+cv2.setMouseCallback('Recognizer', draw_circle)
+while True:
+    cv2.putText(img, "Press 'q' to Quit", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+    cv2.imshow('Recognizer', img)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+cv2.destroyAllWindows()
 '''

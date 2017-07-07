@@ -25,9 +25,10 @@ int main()
 	}
 	Path2D path;
 	GeometricRecognizer geo;
-	int lastframe = 0;
 
 	geo.loadTemplates();
+	int size;
+	bool laser = false;
 	while (true) {
 		double max;
 		double min;
@@ -35,25 +36,34 @@ int main()
 		Point min_loc;
 		Mat cameraFrame;
 		Mat gray;
-		
-		
+		if (!laser)
+			path.clear();
 		stream.read(cameraFrame);
 		cvtColor(cameraFrame, gray, CV_BGR2GRAY);
 		minMaxLoc(gray, &min, &max, &min_loc, &max_loc);
-		if (lastframe < max - 10) {
-			cout << geo.recognize(path).name << endl;
-		}
 		if (max >= 254) {
 			path.push_back(Point2D(max_loc.x, max_loc.y));
-			lastframe = max;
+			laser=true;
 		}
-		Point x;
-		for (int i = 0;i < path.size();i++) {
-			x.x = path[i].x;
-			x.y = path[i].y;
-			circle(cameraFrame,x ,2, (255, 255, 255), 6);
+		else if (max<254){
+			laser = false;
+		}
+		Point x,y;
+		size = path.size();
+		for (int i = 0;i <size-1;i++) {
+			if (size>=2)
+			{
+				x.x = path[i].x;
+				x.y = path[i].y;
+				y.x = path[i+1].x;
+				y.y = path[i+1].y;
+				line(cameraFrame, x,y, (255, 255, 255), 1,4,0);
+			}
+			
 		}			
-		if(!path.empty())				  
+
+		if(!path.empty() &&!laser)				  
+		cout << geo.recognize(path).name << endl;
 		imshow("cam", cameraFrame);
 		if (waitKey(10) == 27) break;	 // Esc button
 	}  
