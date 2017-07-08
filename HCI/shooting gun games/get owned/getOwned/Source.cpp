@@ -120,27 +120,26 @@ theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg
 
 }
 void circlemode() {
-	Mat frame;
-	double minVal;
-	double maxVal;
-	Point minLoc;
-	Point maxLoc;
 	Mat gray;
 	int level = 1;
 	int score = 0;
 	theif the;
+	double max;
+	double min;
+	Point max_loc;
+	Point min_loc;
+	Mat cameraFrame;
 	VideoCapture stream(0);
 	int width = stream.get(3);
 	int	height = stream.get(4);
-	if (!stream.isOpened()) { //check if video device has been initialised
-		cout << "cannot open camera";
-	}
-
 	for (int i = 0; i < level; i++) {
 		the.setlocx(rand() % (width - 75 + 1));
 		the.setlocy(rand() % (height - 75 + 1));
 		myvector.push_back(the);
 
+	}
+	if (!stream.isOpened()) { //check if video device has been initialised
+		cout << "cannot open camera";
 	}
 	Path2D path;
 	GeometricRecognizer geo;
@@ -150,9 +149,9 @@ void circlemode() {
 	while (true) {
 		if (!laser)
 			path.clear();
-		stream.read(frame);
-		cvtColor(frame, gray, CV_BGR2GRAY);
-		minMaxLoc(gray, &minVal, &maxVal, &minLoc, &maxLoc);
+		stream.read(cameraFrame);
+		cvtColor(cameraFrame, gray, CV_BGR2GRAY);
+		minMaxLoc(gray, &min, &max, &min_loc, &max_loc);
 		Mat dark;
 		threshold(gray, dark, 255, 255, 3);
 		Mat theifimg = myvector[0].getimg();
@@ -168,18 +167,19 @@ void circlemode() {
 			Scalar(255, 0, 0), // Color
 			1, // Thickness
 			CV_AA);
-		if (maxVal >= 254) {
-			path.push_back(Point2D(maxLoc.x, maxLoc.y));
+
+
+		if (max >= 254) {
+			path.push_back(Point2D(max_loc.x, max_loc.y));
+			circle(dark, max_loc ,5, (0, 0, 255), 2);
 			laser = true;
 		}
-		else if (maxVal < 254) {
+		else if (max<254) {
 			laser = false;
 		}
 		Point x, y;
 		size = path.size();
-		for (int i = 0; i < size - 1; i++) {
-			path[i].x;
-			path[i].y;
+		for (int i = 0; i <size - 1; i++) {
 			if (size >= 2)
 			{
 				x.x = path[i].x;
@@ -190,26 +190,31 @@ void circlemode() {
 			}
 
 		}
-		if (geo.recognize(path).name == "circle"&&path.size()>0) {
-			x.x = path[0].x;
-			y.y = path[0].y;
-			double maxD = 0;
-			Point maxp;
-			for (int i = 1; i < size - 1; i++) {
-				if (sqrt(pow(path[i].x - path[0].x, 2) + pow(path[i].x - path[0].x, 2)) > maxD) {
-					maxD = sqrt(pow(path[i].x - path[0].x, 2) + pow(path[i].x - path[0].x, 2));
-					maxp.x = path[i].x;
-					maxp.y = path[i].y;
+		if (path.size() > 0) {
+
+			if (geo.recognize(path).name == "circle")
+			{
+				x.x = path[0].x;
+				y.y = path[0].y;
+				double maxD = 0;
+				Point maxp;
+				for (int i = 1; i < size - 1; i++) {
+					if (sqrt(pow(path[i].x - path[0].x, 2) + pow(path[i].x - path[0].x, 2)) > maxD) {
+						maxD = sqrt(pow(path[i].x - path[0].x, 2) + pow(path[i].x - path[0].x, 2));
+						maxp.x = path[i].x;
+						maxp.y = path[i].y;
+					}
 				}
-			}
-			Point center;
-			center.x = (maxp.x + path[0].x) / 2;
-			center.y = (maxp.y + path[0].y) / 2;
-			for (int i = 0; i < myvector.size(); i++) {
-				if (center.x < (myvector[i].getlocx() + (.5 * 75)) && center.x >(myvector[i].getlocx() - (.5 * 75)) &&
-					center.y < (myvector[i].getlocy() + (.5 * 75)) && center.y >(myvector[i].getlocy() - (.5 * 75))) {
-					myvector.erase(myvector.begin() + i);
-					score++;
+				Point center;
+				center.x = (maxp.x + path[0].x) / 2;
+				center.y = (maxp.y + path[0].y) / 2;
+				for (int i = 0; i < myvector.size(); i++) {
+					if (center.x < (myvector[i].getlocx() + (.5 * 75)) && center.x >(myvector[i].getlocx() - (.5 * 75)) &&
+						center.y < (myvector[i].getlocy() + (.5 * 75)) && center.y >(myvector[i].getlocy() - (.5 * 75))) {
+						myvector.erase(myvector.begin() + i);
+						score++;
+					}
+
 				}
 			}
 		}
@@ -222,11 +227,14 @@ void circlemode() {
 
 			}
 		}
+
+
 		if (!path.empty() && !laser)
 			cout << geo.recognize(path).name << endl;
 		imshow("cam", dark);
-		if (waitKey(10) == 27 || level == 10) break;	 // Esc button
+		if (waitKey(10) == 27) break;	 // Esc button
 	}
+	
 }
 void on_mouse(int e, int x, int y, int d, void *ptr)
 {
