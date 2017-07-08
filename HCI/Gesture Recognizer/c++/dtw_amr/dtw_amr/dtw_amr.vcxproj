@@ -99,11 +99,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\opencv\build\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\mosta\Downloads\Compressed\jsoncpp-src-0.5.0\include\json;C:\Users\mosta\Downloads\Programs\opencv\build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>F:\opencv\build\x64\vc14\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\mosta\Downloads\Compressed\jsoncpp-src-0.5.0\src\lib_json;C:\Users\mosta\Downloads\Programs\opencv\build\x64\vc14\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>opencv_world320.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -5,7 +5,7 @@ import numpy as np
 
 recognizer = DTWRecognizer()
 #Using Laser
-
+'''
 cap = cv2.VideoCapture(0)
 points = np.array([], np.int32)
 name = "Draw a gesture"
@@ -56,9 +56,9 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 
-
-#Using Mouse
 '''
+#Using Mouse
+
 drawing = False
 flag = False
 points = np.array([], np.int32)
@@ -88,6 +88,7 @@ def draw_circle(event, x, y, flags, param):
                 flag = True
             
             font = cv2.FONT_HERSHEY_SIMPLEX
+            print([points])  
             cv2.putText(img, name + '(' + ("%0.2f" % score) + ')', (600-(len(name)*15 + 50), 600), font, 2, (255, 255, 255), 3, cv2.LINE_AA)
         points = np.array([], np.int32)
 img = np.zeros((720, 1280, 3), np.uint8)
@@ -99,4 +100,3 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cv2.destroyAllWindows()
-'''

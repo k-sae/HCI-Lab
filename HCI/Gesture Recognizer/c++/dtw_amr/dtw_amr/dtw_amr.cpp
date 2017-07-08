@@ -9,6 +9,7 @@
 #include<Windows.h>
 #include "GeometricRecognizer.h"
 #include <algorithm> 
+#include "json.h"
 #include <iostream>
 
 using namespace cv;
@@ -25,6 +26,7 @@ int main1()
 	}
 	Path2D path;
 	GeometricRecognizer geo;
+
 	geo.loadTemplates();
 	int size;
 	bool laser = false;
@@ -60,7 +62,8 @@ int main1()
 			}
 			
 		}			
-		if(!path.empty() &&!laser)				  
+
+		if(!path.empty() &&!laser)	
 		cout << geo.recognize(path).name << endl;
 		imshow("cam", cameraFrame);
 		if (waitKey(10) == 27) break;	 // Esc button
