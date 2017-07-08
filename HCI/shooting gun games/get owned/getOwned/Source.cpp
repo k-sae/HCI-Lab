@@ -2,6 +2,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "iostream"
+#include<Windows.h>
 #include <thread>
 using namespace cv;
 using namespace std;
@@ -32,6 +33,9 @@ public:
 Mat image;
 string winName = "desplay window";
 Rect button, button2;
+int score = 0;
+vector<theif>myvector;
+
 void Startgame() {
 	Mat frame;
 	double minVal;
@@ -41,7 +45,6 @@ void Startgame() {
 	Mat gray;
 	int level = 1;
 	int score = 0;
-	vector<theif>myvector;
 	VideoCapture cap(0);
 	int width = cap.get(3);
 	int	height = cap.get(4);
@@ -71,9 +74,9 @@ void Startgame() {
 		threshold(gray, dark, 255, 255, 3);
 		Mat theifimg = myvector[0].getimg();
 		for (int i = 0; i < myvector.size(); i++) {
-			theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg.cols, theifimg.rows)));
+theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg.cols, theifimg.rows)));
 		}	//	cvtColor(frame, frame, CV_BGR2GRAY);
-		string livesStr = " score "+ to_string(score)+" level" +to_string(level);
+		string livesStr = " score " + to_string(score) + " level" + to_string(level);
 		putText(dark,
 			livesStr,
 			Point(150, 75), // Coordinates
@@ -102,9 +105,93 @@ void Startgame() {
 
 			}
 		}
-		if (waitKey(30) == 27||level==10)
+		if (waitKey(30) == 27 || level == 10)
 		{
-			cout << "esc key is pressed by user" <<score << endl;
+			cout << "esc key is pressed by user" << score << endl;
+			break;
+		}
+	}
+	waitKey(0);
+
+}
+void on_mouse(int e, int x, int y, int d, void *ptr)
+{
+	Point*p = (Point*)ptr;
+	p->x = x;
+	p->y = y;
+}
+void mousemode() {
+	Mat frame;
+	double minVal;
+	double maxVal;
+	Point minLoc;
+	Point maxLoc;
+	Mat gray;
+	int level = 1;
+	int score = 0;
+	VideoCapture cap(0);
+	int width = cap.get(3);
+	int	height = cap.get(4);
+	theif the;
+	Point p;
+
+	for (int i = 0; i < level; i++) {
+		the.setlocx(rand() % (width - 75 + 1));
+		the.setlocy(rand() % (height - 75 + 1));
+		myvector.push_back(the);
+
+	}
+	if (!cap.isOpened())
+	{
+		cout << "Cannot open the web cam" << endl;
+	}
+	while (true)
+	{
+		bool bSuccess = cap.read(frame);
+		if (!bSuccess)
+		{
+			cout << "Cannot read a frame from video stream" << endl;
+			break;
+		}
+		cvtColor(frame, gray, CV_BGR2GRAY);
+		Mat dark;
+		threshold(gray, dark, 255, 255, 3);
+		Mat theifimg = myvector[0].getimg();
+		for (int i = 0; i < myvector.size(); i++) {
+			theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg.cols, theifimg.rows)));
+		}	//	cvtColor(frame, frame, CV_BGR2GRAY);
+		string livesStr = " score " + to_string(score) + " level" + to_string(level);
+		putText(dark,
+			livesStr,
+			Point(150, 75), // Coordinates
+			FONT_HERSHEY_PLAIN, // Font
+			2.0, // Scale. 2.0 = 2x bigger
+			Scalar(255, 0, 0), // Color
+			1, // Thickness
+			CV_AA);
+		setMouseCallback("displaywindow", on_mouse, &p);
+			for (int i = 0; i < myvector.size(); i++) {
+				if (p.x < (myvector[i].getlocx() + (.5 * 75)) && p.x >(myvector[i].getlocx() - (.5 * 75)) &&
+					p.y < (myvector[i].getlocy() + (.5 * 75)) && p.y >(myvector[i].getlocy() - (.5 * 75))) {
+					myvector.erase(myvector.begin() + i);
+					score++;
+				}
+			}
+		
+		
+		imshow("displaywindow", dark);
+		if (myvector.size() == 0) {
+			level += 1;
+			for (int i = 0; i < level; i++) {
+				the.setlocx(rand() % (width - 75 + 1));
+				the.setlocy(rand() % (height - 75 + 1));
+				myvector.push_back(the);
+
+			}
+		}
+		if (waitKey(30) == 27 || level == 10)
+		{
+			cout << "esc key is pressed by user" << score << endl;
 			break;
 		}
 	}
@@ -138,6 +225,7 @@ void callBackFunc(int event, int x, int y, int flags, void* userdata)
 			{
 				cout << "Clicked!" << endl;
 				rectangle(image, button2, Scalar(0, 0, 255), 2);
+				mousemode();
 			}
 		}
 		if (event == EVENT_LBUTTONUP)
@@ -153,7 +241,7 @@ int main()
 
 	image = imread("newback.png", CV_LOAD_IMAGE_COLOR);
 	string buttonText("play as cop");
-	string buttonText2("play as theif");
+	string buttonText2("play as cop with mouse");
 	button = Rect(0, 500, image.cols, 50);
 	button2 = Rect(0, 600, image.cols, 50);
 	image(button) = Vec3b(200, 200, 200);
@@ -208,4 +296,5 @@ break;
 }
 }
 waitKey(0);
-return 0;*/
+return 0;
+			}*/
