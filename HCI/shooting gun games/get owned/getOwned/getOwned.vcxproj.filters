@@ -18,5 +18,28 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\GeometricRecognizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\SampleGestures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\GeometricRecognizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\GeometricRecognizerTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\GestureTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\PathWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

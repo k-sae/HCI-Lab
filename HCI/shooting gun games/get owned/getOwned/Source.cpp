@@ -1,7 +1,8 @@
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
-#include "iostream"
+#include <iostream>
+#include "GeometricRecognizer.h"
 #include<Windows.h>
 #include <thread>
 using namespace cv;
