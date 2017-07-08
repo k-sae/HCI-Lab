@@ -6,7 +6,6 @@
 #include "GeometricRecognizerTypes.h"
 #include "GestureTemplate.h"
 #include "SampleGestures.h"
-#include "stdafx.h"
 using namespace std;
 
 namespace DollarRecognizer
