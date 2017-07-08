@@ -16,7 +16,7 @@ using namespace cv;
 using namespace std;
 using namespace DollarRecognizer;
 
-int main()
+int main1()
 {
 
 	VideoCapture stream(0);
