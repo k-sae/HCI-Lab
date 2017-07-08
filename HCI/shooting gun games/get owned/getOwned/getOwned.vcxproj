@@ -145,7 +145,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\..\Downloads\Compressed\GeometricRecognizer.cpp" />
+    <ClCompile Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\stdafx.cpp" />
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Compressed\GeometricRecognizer.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Compressed\GeometricRecognizerTypes.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Compressed\GestureTemplate.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Compressed\PathWriter.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Compressed\SampleGestures.h" />
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\stdafx.h" />
+    <ClInclude Include="..\..\..\Gesture Recognizer\c++\dtw_amr\dtw_amr\targetver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

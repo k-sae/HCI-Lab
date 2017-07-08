@@ -4,8 +4,12 @@
 #include "iostream"
 #include<Windows.h>
 #include <thread>
+#include "GeometricRecognizer.h"
+#include <algorithm> 
+#include <iostream>
 using namespace cv;
 using namespace std;
+using namespace DollarRecognizer;
 class theif {
 	int locx;
 	int locy;
@@ -32,7 +36,7 @@ public:
 
 Mat image;
 string winName = "desplay window";
-Rect button, button2;
+Rect button, button2,button3;
 int score = 0;
 vector<theif>myvector;
 
@@ -113,6 +117,56 @@ theifimg.copyTo(dark(Rect(myvector[i].getlocx(), myvector[i].getlocy(), theifimg
 	}
 	waitKey(0);
 
+}
+void circlemode() {
+	VideoCapture stream(0);
+	if (!stream.isOpened()) { //check if video device has been initialised
+		cout << "cannot open camera";
+	}
+	Path2D path;
+	GeometricRecognizer geo;
+
+	geo.loadTemplates();
+	int size;
+	bool laser = false;
+	while (true) {
+		double max;
+		double min;
+		Point max_loc;
+		Point min_loc;
+		Mat cameraFrame;
+		Mat gray;
+		if (!laser)
+			path.clear();
+		stream.read(cameraFrame);
+		cvtColor(cameraFrame, gray, CV_BGR2GRAY);
+		minMaxLoc(gray, &min, &max, &min_loc, &max_loc);
+		if (max >= 254) {
+			path.push_back(Point2D(max_loc.x, max_loc.y));
+			laser = true;
+		}
+		else if (max<254) {
+			laser = false;
+		}
+		Point x, y;
+		size = path.size();
+		for (int i = 0; i <size - 1; i++) {
+			if (size >= 2)
+			{
+				x.x = path[i].x;
+				x.y = path[i].y;
+				y.x = path[i + 1].x;
+				y.y = path[i + 1].y;
+				line(cameraFrame, x, y, (255, 255, 255), 1, 4, 0);
+			}
+
+		}
+
+		if (!path.empty() && !laser)
+			cout << geo.recognize(path).name << endl;
+		imshow("cam", cameraFrame);
+		if (waitKey(10) == 27) break;	 // Esc button
+	}
 }
 void on_mouse(int e, int x, int y, int d, void *ptr)
 {
@@ -200,7 +254,7 @@ void mousemode() {
 }
 void callBackFunc(int event, int x, int y, int flags, void* userdata)
 {
-	if (y > 500 && y < 550)
+	if (y > 480 && y < 530)
 	{
 		if (event == EVENT_LBUTTONDOWN)
 		{
@@ -218,7 +272,7 @@ void callBackFunc(int event, int x, int y, int flags, void* userdata)
 
 		imshow(winName, image);
 		waitKey(1);
-	}if (y > 600 && y < 650) {
+	}if (y > 550 && y < 600) {
 		if (event == EVENT_LBUTTONDOWN)
 		{
 			if (button2.contains(Point(x, y)))
@@ -226,6 +280,22 @@ void callBackFunc(int event, int x, int y, int flags, void* userdata)
 				cout << "Clicked!" << endl;
 				rectangle(image, button2, Scalar(0, 0, 255), 2);
 				mousemode();
+			}
+		}
+		if (event == EVENT_LBUTTONUP)
+		{
+			rectangle(image, button2, Scalar(200, 200, 200), 2);
+		}
+		waitKey(1);
+	}
+	if (y > 550 && y < 600) {
+		if (event == EVENT_LBUTTONDOWN)
+		{
+			if (button3.contains(Point(x, y)))
+			{
+				cout << "Clicked!" << endl;
+				rectangle(image, button3, Scalar(0, 0, 255), 2);
+				circlemode();
 			}
 		}
 		if (event == EVENT_LBUTTONUP)
@@ -242,12 +312,16 @@ int main()
 	image = imread("newback.png", CV_LOAD_IMAGE_COLOR);
 	string buttonText("play as cop");
 	string buttonText2("play as cop with mouse");
-	button = Rect(0, 500, image.cols, 50);
-	button2 = Rect(0, 600, image.cols, 50);
+	string buttonText3("play with laser but with circles");
+	button = Rect(0, 480, image.cols, 50);
+	button2 = Rect(0, 550, image.cols, 50);
+	button3 = Rect(0, 620, image.cols, 50);
 	image(button) = Vec3b(200, 200, 200);
 	image(button2) = Vec3b(200, 200, 200);
-	putText(image, buttonText, Point(button.width*0.4, 500 + button.height*0.5), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 0));
-	putText(image, buttonText2, Point(button.width*0.4, 600 + button.height*0.5), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 0));
+	image(button3) = Vec3b(200, 200, 200);
+	putText(image, buttonText, Point(button.width*0.4, 480 + button.height*0.5), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 0));
+	putText(image, buttonText2, Point(button.width*0.4, 550 + button.height*0.5), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 0));
+	putText(image, buttonText3, Point(button.width*0.4, 620 + button.height*0.5), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 0));
 	namedWindow(winName, CV_WINDOW_AUTOSIZE);
 	namedWindow(winName);
 	setMouseCallback(winName, callBackFunc);
