@@ -9,13 +9,14 @@
 #include<Windows.h>
 #include "GeometricRecognizer.h"
 #include <algorithm> 
+#include "json.h"
 #include <iostream>
 
 using namespace cv;
 using namespace std;
 using namespace DollarRecognizer;
 
-int main()
+int main1()
 {
 
 	VideoCapture stream(0);
@@ -62,7 +63,7 @@ int main()
 			
 		}			
 
-		if(!path.empty() &&!laser)				  
+		if(!path.empty() &&!laser)	
 		cout << geo.recognize(path).name << endl;
 		imshow("cam", cameraFrame);
 		if (waitKey(10) == 27) break;	 // Esc button
