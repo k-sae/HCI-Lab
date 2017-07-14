@@ -7,9 +7,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
-import java.awt.image.WritableRaster;
+import java.awt.image.*;
 
 /**
  * Created by kareem on 7/14/17.
@@ -37,14 +35,18 @@ public class Histogram {
         PixelReader pixelReader = wr.getPixelReader();
         if (pixelReader == null) {
             return;
-        }  for (int y = 0; y < image.getHeight(); y++) {
-            for (int x = 0; x < image.getWidth(); x++) {
-                int argb = pixelReader.getArgb(x, y);
-                int g = (0xff & (argb >> 8));
+        }
+        Raster raster = image.getData();
+        DataBuffer buffer = raster.getDataBuffer();
+        DataBufferByte byteBuffer = (DataBufferByte) buffer;
+        byte[] srcData = byteBuffer.getData(0);
+        for (int y = 0; y < srcData.length; y++) {
+            int g= 0xFF & srcData[y];
+
                 gray[g]++;
 
             }
-        }
+
 
         seriesGray = new XYChart.Series();
         seriesGray.setName("gray");

@@ -92,7 +92,7 @@ for (int i =0; i <256;i++) {
 
 this.bcvariance= this.Bweight * this.Fweight * (this.Bmean - this.Fmean) * (this.Bmean - this.Fmean) ;
 
-if (this.bcvariance >= this.MaxBcvariance){
+if (this.bcvariance > this.MaxBcvariance){
     this.MaxBcvariance=this.bcvariance;
     this.threshold=i;
 }
