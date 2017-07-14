@@ -1,5 +1,6 @@
 import ij.ImagePlus;
 import ij.plugin.DICOM;
+import ij.process.ImageConverter;
 
 import java.awt.image.BufferedImage;
 
@@ -34,9 +35,11 @@ public class Utils {
     //          another thing ...
     //          nvm i forgot :D
 
-    public static ImagePlus toGrayScale(ImagePlus dicom)
+    public static ImagePlus toGrayScale(ImagePlus imagePlus)
     {
-        return dicom;
+        new ImageConverter(imagePlus).convertToGray8();
+
+        return imagePlus;
     }
     public static BufferedImage toGrayScale(BufferedImage bufferedImage){
         return bufferedImage;

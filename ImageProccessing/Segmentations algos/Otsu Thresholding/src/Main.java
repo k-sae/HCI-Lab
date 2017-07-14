@@ -14,14 +14,15 @@ public class Main {
     public static void main(String... args)
     {
         //read image from file
-        String url = "imgs/grey.dcm";
+        String url = "imgs/rgb.dcm";
         ImagePlus imagePlus;
         imagePlus = new ImagePlus(url);
         //start the otsu thresholder algo
         System.out.println(Utils.imagePlusToBuffered(imagePlus).getColorModel().getPixelSize());
         Thresholder thresholder= new Thresholder();
-        thresholder.startThresholding(Utils.toGrayScale(Utils.imagePlusToBuffered(imagePlus)));
+        thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         //get the histogram and pass it to the viewer
+        System.out.println(Utils.imagePlusToBuffered(imagePlus).getColorModel().getPixelSize());
         Histogram h =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         long gray[] =h.getGray();
         //   HistogramViewer histogramViewer = new HistogramViewer(thresholder.getHistogram());
