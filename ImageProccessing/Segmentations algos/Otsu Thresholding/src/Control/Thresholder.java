@@ -27,8 +27,5 @@ public class Thresholder {
     }
     //TODO #hazem
     //              ask Amr for what u shall do
-    public Histogram getHistogram()
-    {
-        return new Histogram();
-    }
+    public Histogram getHistogram(BufferedImage input) {return new Histogram(input);}
 }

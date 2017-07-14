@@ -1,3 +1,4 @@
+import Control.Histogram;
 import Control.Thresholder;
 import View.HistogramViewer;
 import ij.IJ;
@@ -24,7 +25,8 @@ public class Main {
         Thresholder thresholder= new Thresholder();
         thresholder.startThresholding(Utils.toGrayScale(Utils.dcmToBuffered(bufferedImage)));
         //get the histogram and pass it to the viewer
-        HistogramViewer histogramViewer = new HistogramViewer(thresholder.getHistogram());
+        Histogram h =new Histogram(Utils.toGrayScale(Utils.dcmToBuffered(bufferedImage)));
+        //   HistogramViewer histogramViewer = new HistogramViewer(thresholder.getHistogram());
         //add this to the ui
         //start ui up here
     }
