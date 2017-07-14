@@ -1,7 +1,6 @@
 import Control.Histogram;
 import Control.Thresholder;
 import View.HistogramViewer;
-import ij.IJ;
 import ij.ImagePlus;
 import ij.plugin.DICOM;
 import javafx.application.Application;
@@ -10,10 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by kemo on 13/07/2017.
@@ -33,11 +29,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         DICOM bufferedImage = Utils.readImageAsDICOM("imgs/P000100.dcm");
+        String url = "imgs/rgb.dcm";
+        ImagePlus imagePlus;
+        imagePlus = new ImagePlus(url);
         //start the otsu thresholder algo
+        System.out.println(Utils.imagePlusToBuffered(imagePlus).getColorModel().getPixelSize());
         Thresholder thresholder= new Thresholder();
-        thresholder.startThresholding(Utils.toGrayScale(Utils.dcmToBuffered(bufferedImage)));
+        thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         //get the histogram and pass it to the viewer
-        Histogram h =new Histogram(Utils.toGrayScale(Utils.dcmToBuffered(bufferedImage)));
+        System.out.println(Utils.imagePlusToBuffered(imagePlus).getColorModel().getPixelSize());
+        Histogram h =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         long gray[] =h.getGray();
 
         HistogramViewer histogramViewer = new HistogramViewer();
