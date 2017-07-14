@@ -56,9 +56,13 @@ public class Histogram {
         success = true;
     }
 
-    public long[] getGray() {
+    public long[] getGrayHistogram() {
         return gray;
     }
+    public long[] getOriginalHistogram() {
+        return gray;
+    }
+
 
     public XYChart.Series getSeriesGray() {
         return seriesGray;

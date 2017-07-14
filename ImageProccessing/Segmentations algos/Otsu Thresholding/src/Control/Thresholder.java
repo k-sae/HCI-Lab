@@ -2,7 +2,14 @@ package Control;
 
 import ij.plugin.DICOM;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by kareem on 7/13/17.
@@ -41,10 +48,9 @@ public class Thresholder {
      * @param input a gray scale image to start segmentation
      * @return new instance of buffered image
      */
-    public double startThresholding(BufferedImage input)
-    {
+    public BufferedImage startThresholding(BufferedImage input) throws IOException {
        this.histogram =getHistogram(input);
-      this.HistogramData = histogram.getGray();
+      this.HistogramData = histogram.getGrayHistogram();
 
 
 
@@ -60,15 +66,7 @@ for (int i =0; i <256;i++) {
     this.meanSum=0;
     this.varianceSum=0;
 
-
-
-
-
-
-
-
-
-    // For Background
+  // For Background
 
     for (int Bi =0;Bi<i;Bi++){
         this.weightSum+=this.HistogramData[Bi];
@@ -78,17 +76,12 @@ for (int i =0; i <256;i++) {
     this.Bmean =  this.meanSum/this.weightSum;
     this.meanSum=0;
 
-
     // For Foreground
     this.Fweight=1-Bweight;
     for (int Fi =i;Fi<256;Fi++){
         this.meanSum+=Fi*this.HistogramData[Fi];
-
     }
     this.Fmean=this.meanSum/(this.PixelsValueSum-this.weightSum);
-
-
-
 
 this.bcvariance= this.Bweight * this.Fweight * (this.Bmean - this.Fmean) * (this.Bmean - this.Fmean) ;
 
@@ -97,23 +90,18 @@ if (this.bcvariance > this.MaxBcvariance){
     this.threshold=i;
 }
 
-
-
-
-
 }
-return this.threshold;
+        Raster raster = input.getData();
+        DataBuffer buffer = raster.getDataBuffer();
+        DataBufferByte byteBuffer = (DataBufferByte) buffer;
+        byte[] srcData = byteBuffer.getData(0);
+byte[] thresholdingImage = new byte[srcData.length];
+for (int j =0; j <srcData.length;j++)
+   thresholdingImage[j] = ((srcData[j] &0xFF)>=this.threshold) ? (byte)255: 0;
 
+         input = ImageIO.read(new ByteArrayInputStream(thresholdingImage));
 
-
-
-
-
-
-
-
-
-       // return input;
+       return input;
     }
 
 
@@ -128,6 +116,8 @@ return this.threshold;
     //TODO #hazem
     //              ask Amr for what u shall do
     public Histogram getHistogram(BufferedImage input)
-    {return new Histogram(input);}
+    {
+        return new Histogram(input);
+    }
 
 }
