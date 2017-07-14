@@ -25,7 +25,7 @@ public class Main {
         Thresholder thresholder= new Thresholder();
         thresholder.startThresholding(Utils.toGrayScale(Utils.dcmToBuffered(bufferedImage)));
         //get the histogram and pass it to the viewer
-        Histogram h =new Histogram(Utils.toGrayScale(Utils.dcmToBuffered(bufferedImage)));
+        Histogram h =new Histogram(Utils.dcmToBuffered(Utils.toGrayScale(bufferedImage)));
         long gray[] =h.getGray();
         //   HistogramViewer histogramViewer = new HistogramViewer(thresholder.getHistogram());
         //add this to the ui
