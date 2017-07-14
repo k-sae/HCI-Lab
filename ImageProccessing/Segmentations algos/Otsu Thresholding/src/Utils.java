@@ -1,3 +1,4 @@
+import ij.ImagePlus;
 import ij.plugin.DICOM;
 
 import java.awt.image.BufferedImage;
@@ -7,7 +8,7 @@ import java.awt.image.BufferedImage;
  * Don't try to figure it out yub i included the whole imagej project up here :)
  */
 public class Utils {
-    public static BufferedImage dcmToBuffered(DICOM src)
+    public static BufferedImage imagePlusToBuffered(ImagePlus src)
     {
         return src.getBufferedImage();
     }
@@ -33,7 +34,7 @@ public class Utils {
     //          another thing ...
     //          nvm i forgot :D
 
-    public static DICOM toGrayScale(DICOM dicom)
+    public static ImagePlus toGrayScale(ImagePlus dicom)
     {
         return dicom;
     }

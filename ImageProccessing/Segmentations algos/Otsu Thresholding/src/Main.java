@@ -1,14 +1,8 @@
 import Control.Histogram;
 import Control.Thresholder;
-import View.HistogramViewer;
-import ij.IJ;
 import ij.ImagePlus;
-import ij.plugin.DICOM;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by kemo on 13/07/2017.
@@ -20,12 +14,18 @@ public class Main {
     public static void main(String... args)
     {
         //read image from file
-        DICOM bufferedImage = Utils.readImageAsDICOM("imgs/P000100.dcm");
+        String url = "imgs/P000100.dcm";
+//        DICOM bufferedImage = Utils.readImageAsDICOM("imgs/tt.png");
+        ImagePlus imagePlus;
+        if (url.endsWith(".dcm")) {
+            imagePlus =  Utils.readImageAsDICOM(url);
+        }
+        else imagePlus = new ImagePlus(url);
         //start the otsu thresholder algo
         Thresholder thresholder= new Thresholder();
-        thresholder.startThresholding(Utils.toGrayScale(Utils.dcmToBuffered(bufferedImage)));
+        thresholder.startThresholding(Utils.toGrayScale(Utils.imagePlusToBuffered(imagePlus)));
         //get the histogram and pass it to the viewer
-        Histogram h =new Histogram(Utils.dcmToBuffered(Utils.toGrayScale(bufferedImage)));
+        Histogram h =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         long gray[] =h.getGray();
         //   HistogramViewer histogramViewer = new HistogramViewer(thresholder.getHistogram());
         //add this to the ui
