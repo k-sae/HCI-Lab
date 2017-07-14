@@ -28,5 +28,9 @@ public class Main {
         //   HistogramViewer histogramViewer = new HistogramViewer(thresholder.getHistogram());
         //add this to the ui
         //start ui up here
+        for (int i=0;i<256;i++)
+            System.out.println(i + "  : " +gray[i]);
+
+        System.out.println(  thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)))  );
     }
 }
