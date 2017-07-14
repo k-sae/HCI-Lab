@@ -42,6 +42,7 @@ public class Histogram {
         byte[] srcData = byteBuffer.getData(0);
         for (int y = 0; y < srcData.length; y++) {
             int g= 0xFF & srcData[y];
+
                 gray[g]++;
 
             }
@@ -62,4 +63,6 @@ public class Histogram {
     public XYChart.Series getSeriesGray() {
         return seriesGray;
     }
-    }
+
+    public boolean getsucess(){return success;}
+}
