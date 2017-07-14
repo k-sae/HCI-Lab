@@ -36,11 +36,13 @@ public class Main extends Application {
         thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         //get the histogram and pass it to the viewer
         System.out.println(Utils.imagePlusToBuffered(imagePlus).getColorModel().getPixelSize());
-        Histogram histogram =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
-        long gray[] =histogram.getGrayHistogram();
+        Histogram histogram =new Histogram();
+        // The Results Data
         BufferedImage thresholderingImage =  thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
-        ;
-
+        histogram.GenerateHistogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
+        long originalHistogram[] = histogram.getGrayHistogram();
+        histogram.GenerateHistogram(thresholderingImage);
+        long thresholderingImageHistogram[] = histogram.getGrayHistogram();
         //Use this to show the histogram
         HistogramViewer histogramViewer = new HistogramViewer();
         HBox hb=histogramViewer.HistogramViewer(histogram);
