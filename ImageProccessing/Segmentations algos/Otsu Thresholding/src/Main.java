@@ -15,12 +15,8 @@ public class Main {
     {
         //read image from file
         String url = "imgs/P000100.dcm";
-//        DICOM bufferedImage = Utils.readImageAsDICOM("imgs/tt.png");
         ImagePlus imagePlus;
-        if (url.endsWith(".dcm")) {
-            imagePlus =  Utils.readImageAsDICOM(url);
-        }
-        else imagePlus = new ImagePlus(url);
+        imagePlus = url.endsWith(".dcm") ? Utils.readImageAsDICOM(url) : new ImagePlus(url);
         //start the otsu thresholder algo
         Thresholder thresholder= new Thresholder();
         thresholder.startThresholding(Utils.toGrayScale(Utils.imagePlusToBuffered(imagePlus)));
