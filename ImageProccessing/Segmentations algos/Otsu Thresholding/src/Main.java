@@ -19,7 +19,7 @@ public class Main {
         imagePlus = url.endsWith(".dcm") ? Utils.readImageAsDICOM(url) : new ImagePlus(url);
         //start the otsu thresholder algo
         Thresholder thresholder= new Thresholder();
-        thresholder.startThresholding(Utils.toGrayScale(Utils.imagePlusToBuffered(imagePlus)));
+        thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         //get the histogram and pass it to the viewer
         Histogram h =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         long gray[] =h.getGray();
