@@ -1,14 +1,13 @@
 import Control.Histogram;
 import Control.Thresholder;
 import View.HistogramViewer;
+import View.MainWindow;
 import ij.ImagePlus;
-import ij.plugin.DICOM;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.awt.image.BufferedImage;
 
 /**
@@ -20,7 +19,6 @@ import java.awt.image.BufferedImage;
 public class Main extends Application {
     public static void main(String... args)
     {
-        //read image from file
         launch(args);
         //add this to the ui
         //start ui up here
@@ -28,7 +26,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DICOM bufferedImage = Utils.readImageAsDICOM("imgs/P000100.dcm");
+        //read image from file
         String url = "imgs/rgb.dcm";
         ImagePlus imagePlus;
         imagePlus = new ImagePlus(url);
@@ -41,14 +39,16 @@ public class Main extends Application {
         Histogram h =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         long gray[] =h.getGray();
 
+        //Use this to show the histogram
         HistogramViewer histogramViewer = new HistogramViewer();
         HBox hb=histogramViewer.HistogramViewer(h);
+
         StackPane root = new StackPane();
-        root.getChildren().add(hb);
+        root.getChildren().add(new MainWindow());
 
         Scene scene = new Scene(root, 1000, 500);
 
-        primaryStage.setTitle("java-buddy.blogspot.com");
+        primaryStage.setTitle("Otsu Thresholding");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
