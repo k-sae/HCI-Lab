@@ -36,12 +36,14 @@ public class Main extends Application {
         thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         //get the histogram and pass it to the viewer
         System.out.println(Utils.imagePlusToBuffered(imagePlus).getColorModel().getPixelSize());
-        Histogram h =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
-        long gray[] =h.getGrayHistogram();
+        Histogram histogram =new Histogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
+        long gray[] =histogram.getGrayHistogram();
+        BufferedImage thresholderingImage =  thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
+        ;
 
         //Use this to show the histogram
         HistogramViewer histogramViewer = new HistogramViewer();
-        HBox hb=histogramViewer.HistogramViewer(h);
+        HBox hb=histogramViewer.HistogramViewer(histogram);
 
         StackPane root = new StackPane();
         root.getChildren().add(new MainWindow());

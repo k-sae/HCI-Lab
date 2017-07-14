@@ -17,7 +17,7 @@ public class Histogram {
     private long gray[] = new long[256];
     XYChart.Series seriesGray;
     private boolean success;
-    public Histogram(BufferedImage image){
+    public void GenerateHistogram(BufferedImage image){
         success = false;
         WritableImage wr = null;
         if (image != null) {
@@ -59,9 +59,7 @@ public class Histogram {
     public long[] getGrayHistogram() {
         return gray;
     }
-    public long[] getOriginalHistogram() {
-        return gray;
-    }
+
 
 
     public XYChart.Series getSeriesGray() {

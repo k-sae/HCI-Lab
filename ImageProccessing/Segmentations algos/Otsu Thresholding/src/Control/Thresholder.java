@@ -117,7 +117,9 @@ for (int j =0; j <srcData.length;j++)
     //              ask Amr for what u shall do
     public Histogram getHistogram(BufferedImage input)
     {
-        return new Histogram(input);
+        Histogram histogram = new Histogram();
+        histogram.GenerateHistogram(input);
+        return histogram ;
     }
 
 }
