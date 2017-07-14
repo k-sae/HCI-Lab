@@ -37,7 +37,7 @@ public class Histogram {
         PixelReader pixelReader = wr.getPixelReader();
         if (pixelReader == null) {
             return;
-        }for (int y = 0; y < image.getHeight(); y++) {
+        }  for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
                 int argb = pixelReader.getArgb(x, y);
                 int g = (0xff & (argb >> 8));
@@ -61,4 +61,6 @@ public class Histogram {
     public XYChart.Series getSeriesGray() {
         return seriesGray;
     }
-    }
+
+    public boolean getsucess(){return success;}
+}

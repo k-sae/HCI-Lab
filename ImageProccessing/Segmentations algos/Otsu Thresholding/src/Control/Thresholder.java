@@ -29,4 +29,5 @@ public class Thresholder {
     //              ask Amr for what u shall do
     public Histogram getHistogram(BufferedImage input)
     {return new Histogram(input);}
+
 }
