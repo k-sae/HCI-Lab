@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by kemo on 13/07/2017.
@@ -38,6 +41,7 @@ public class Main extends Application {
         System.out.println(Utils.imagePlusToBuffered(imagePlus).getColorModel().getPixelSize());
         Histogram histogram =new Histogram();
         // The Results Data
+
         BufferedImage thresholderingImage =  thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         histogram.GenerateHistogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
         long originalHistogram[] = histogram.getGrayHistogram();
