@@ -28,6 +28,7 @@ public class MainWindow extends VBox {
     private VBox container;
     BufferedImage thresholdingImage = null;
     Histogram threasholdedHistogram = new Histogram();
+    boolean clickedMask=true;
     public MainWindow(){
         setLayout();
     }
@@ -48,7 +49,7 @@ public class MainWindow extends VBox {
 
         Button uploadImgBtn = new Button("Open image");
         uploadImgBtn.setOnAction(event -> {
-
+            clickedMask = true;
             ImagePlus imgp = imageFilter();
 
             if(imgp != null) {
@@ -71,10 +72,13 @@ public class MainWindow extends VBox {
 
                 Button applyBtn = new Button("Apply Mask");
                 applyBtn.setOnAction(event1 -> {
-                    //TODO Pass to addImg function the Image -in ImagePlus- after the Algorithm is done and the histogram -in HBox-
-                    HistogramViewer viewer = new HistogramViewer();
-                    HBox hb2=viewer.HistogramViewer(threasholdedHistogram);
-                    addImg(Utils.bufferedToImage(thresholdingImage), hb2);
+                    if (clickedMask) {
+                        //TODO Pass to addImg function the Image -in ImagePlus- after the Algorithm is done and the histogram -in HBox-
+                        HistogramViewer viewer = new HistogramViewer();
+                        HBox hb2 = viewer.HistogramViewer(threasholdedHistogram);
+                        addImg(Utils.bufferedToImage(thresholdingImage), hb2);
+                    }
+                    clickedMask=false;
                 });
 
                 container.getChildren().add(applyBtn);
