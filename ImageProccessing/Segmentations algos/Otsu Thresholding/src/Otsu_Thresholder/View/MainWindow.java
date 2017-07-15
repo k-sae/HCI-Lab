@@ -97,7 +97,7 @@ public class MainWindow extends VBox {
     private ImagePlus imageFilter(){
 
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilterJPg = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterJPg = new FileChooser.ExtensionFilter("Images", "*.JPG","*.TIF","*.DCM","*.dcm","*.PNG");
         FileChooser.ExtensionFilter extFilterTiff = new FileChooser.ExtensionFilter("TIF files (*.tif)", "*.TIF");
         FileChooser.ExtensionFilter extFilterDcm = new FileChooser.ExtensionFilter("DCM files (*.dcm)", "*.DCM");
         FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
