@@ -1,3 +1,4 @@
+
 package Otsu_Thresholder.View;
 
 import Otsu_Thresholder.Control.Histogram;
@@ -28,6 +29,7 @@ public class MainWindow extends VBox {
     private VBox container;
     BufferedImage thresholdingImage = null;
     Histogram threasholdedHistogram = new Histogram();
+    boolean clickedMask=true;
     public MainWindow(){
         setLayout();
     }
@@ -50,12 +52,12 @@ public class MainWindow extends VBox {
         uploadImgBtn.setOnAction(event -> {
 
             ImagePlus imgp = imageFilter();
-
+            clickedMask = true;
             if(imgp != null) {
                 container.getChildren().clear();
                 //TODO Pass to addImg function the histogram -in HBox-
 
-                ImagePlus imagePlus =imgp;
+                ImagePlus imagePlus = (ImagePlus) imgp.clone();
                 Thresholder thresholder = new Thresholder();
                 Histogram histogram = new Histogram();
                 try {
@@ -72,9 +74,12 @@ public class MainWindow extends VBox {
                 Button applyBtn = new Button("Apply Mask");
                 applyBtn.setOnAction(event1 -> {
                     //TODO Pass to addImg function the Image -in ImagePlus- after the Algorithm is done and the histogram -in HBox-
-                    HistogramViewer viewer = new HistogramViewer();
-                    HBox hb2=viewer.HistogramViewer(threasholdedHistogram);
-                    addImg(Utils.bufferedToImage(thresholdingImage), hb2);
+                    if (clickedMask) {
+                        HistogramViewer viewer = new HistogramViewer();
+                        HBox hb2 = viewer.HistogramViewer(threasholdedHistogram);
+                        addImg(Utils.bufferedToImage(thresholdingImage), hb2);
+                    }
+                    clickedMask=false;
                 });
 
                 container.getChildren().add(applyBtn);
@@ -97,7 +102,7 @@ public class MainWindow extends VBox {
     private ImagePlus imageFilter(){
 
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilterJPg = new FileChooser.ExtensionFilter("Images", "*.JPG","*.TIF","*.DCM","*.dcm","*.PNG");
+        FileChooser.ExtensionFilter extFilterJPg = new FileChooser.ExtensionFilter("Images", "*.JPG","*.jpg","*.TIF","*.DCM","*.dcm","*.PNG");
         FileChooser.ExtensionFilter extFilterTiff = new FileChooser.ExtensionFilter("TIF files (*.tif)", "*.TIF");
         FileChooser.ExtensionFilter extFilterDcm = new FileChooser.ExtensionFilter("DCM files (*.dcm)", "*.DCM");
         FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
