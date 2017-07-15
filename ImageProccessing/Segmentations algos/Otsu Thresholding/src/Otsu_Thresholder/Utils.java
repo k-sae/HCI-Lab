@@ -1,3 +1,5 @@
+package Otsu_Thresholder;
+
 import ij.ImagePlus;
 import ij.plugin.DICOM;
 import ij.process.ImageConverter;

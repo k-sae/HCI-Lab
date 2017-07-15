@@ -1,14 +1,11 @@
-package Control;
+package Otsu_Thresholder.Control;
 
 import ij.plugin.DICOM;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.*;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Hashtable;
 
 /**

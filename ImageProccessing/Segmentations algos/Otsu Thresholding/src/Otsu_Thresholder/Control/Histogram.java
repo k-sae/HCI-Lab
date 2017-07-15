@@ -1,12 +1,10 @@
-package Control;
+package Otsu_Thresholder.Control;
 
 import javafx.scene.chart.XYChart;
-import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
-import java.awt.*;
 import java.awt.image.*;
 
 /**

@@ -1,8 +1,5 @@
-package View;
+package Otsu_Thresholder.View;
 
-import com.sun.javafx.scene.control.skin.Utils;
-import Control.Histogram;
-import Control.Thresholder;
 import ij.ImagePlus;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
@@ -15,11 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import Utils;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
 
 /**
@@ -56,11 +50,11 @@ public class MainWindow extends VBox {
 /*
                 ImagePlus imagePlus =imgp;
                 Thresholder thresholder = new Thresholder();
-                thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
+                thresholder.startThresholding(Otsu_Thresholder.Utils.imagePlusToBuffered(Otsu_Thresholder.Utils.toGrayScale(imagePlus)));
 
                 Histogram histogram = new Histogram();
-                BufferedImage thresholderingImage =  thresholder.startThresholding(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
-                histogram.GenerateHistogram(Utils.imagePlusToBuffered(Utils.toGrayScale(imagePlus)));
+                BufferedImage thresholderingImage =  thresholder.startThresholding(Otsu_Thresholder.Utils.imagePlusToBuffered(Otsu_Thresholder.Utils.toGrayScale(imagePlus)));
+                histogram.GenerateHistogram(Otsu_Thresholder.Utils.imagePlusToBuffered(Otsu_Thresholder.Utils.toGrayScale(imagePlus)));
                 long originalHistogram[] = histogram.getGrayHistogram();
                 histogram.GenerateHistogram(thresholderingImage);
                 long thresholderingImageHistogram[] = histogram.getGrayHistogram();

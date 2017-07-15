@@ -1,12 +1,10 @@
-package View;
+package Otsu_Thresholder.View;
 
-import Control.Histogram;
+import Otsu_Thresholder.Control.Histogram;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import Control.Histogram;
 
 /**
  * Created by kareem on 7/14/17.
