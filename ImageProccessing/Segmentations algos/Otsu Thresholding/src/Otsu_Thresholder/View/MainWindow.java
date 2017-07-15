@@ -58,6 +58,7 @@ public class MainWindow extends VBox {
                 //TODO Pass to addImg function the histogram -in HBox-
 
                 ImagePlus imagePlus = (ImagePlus) imgp.clone();
+
                 Thresholder thresholder = new Thresholder();
                 Histogram histogram = new Histogram();
                 try {
