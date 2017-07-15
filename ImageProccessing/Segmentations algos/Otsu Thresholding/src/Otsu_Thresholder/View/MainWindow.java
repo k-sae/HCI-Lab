@@ -1,5 +1,8 @@
 package Otsu_Thresholder.View;
 
+import Otsu_Thresholder.Control.Histogram;
+import Otsu_Thresholder.Control.Thresholder;
+import Otsu_Thresholder.Utils;
 import ij.ImagePlus;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
@@ -13,7 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -21,6 +26,8 @@ import java.io.File;
  */
 public class MainWindow extends VBox {
     private VBox container;
+    BufferedImage thresholdingImage = null;
+    Histogram threasholdedHistogram = new Histogram();
     public MainWindow(){
         setLayout();
     }
@@ -47,28 +54,27 @@ public class MainWindow extends VBox {
             if(imgp != null) {
                 container.getChildren().clear();
                 //TODO Pass to addImg function the histogram -in HBox-
-/*
+
                 ImagePlus imagePlus =imgp;
                 Thresholder thresholder = new Thresholder();
-                thresholder.startThresholding(Otsu_Thresholder.Utils.imagePlusToBuffered(Otsu_Thresholder.Utils.toGrayScale(imagePlus)));
-
                 Histogram histogram = new Histogram();
-                BufferedImage thresholderingImage =  thresholder.startThresholding(Otsu_Thresholder.Utils.imagePlusToBuffered(Otsu_Thresholder.Utils.toGrayScale(imagePlus)));
+                try {
+                    thresholdingImage = thresholder.startThresholding(Otsu_Thresholder.Utils.imagePlusToBuffered(Otsu_Thresholder.Utils.toGrayScale(imagePlus)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 histogram.GenerateHistogram(Otsu_Thresholder.Utils.imagePlusToBuffered(Otsu_Thresholder.Utils.toGrayScale(imagePlus)));
-                long originalHistogram[] = histogram.getGrayHistogram();
-                histogram.GenerateHistogram(thresholderingImage);
-                long thresholderingImageHistogram[] = histogram.getGrayHistogram();
-
+                threasholdedHistogram.GenerateHistogram(thresholdingImage);
                 HistogramViewer histogramViewer = new HistogramViewer();
                 HBox hb=histogramViewer.HistogramViewer(histogram);
-*/
-                addImg(imgp, new HBox());
+                addImg(imgp, hb);
 
                 Button applyBtn = new Button("Apply Mask");
                 applyBtn.setOnAction(event1 -> {
-
                     //TODO Pass to addImg function the Image -in ImagePlus- after the Algorithm is done and the histogram -in HBox-
-                    addImg(imgp, new HBox());
+                    HistogramViewer viewer = new HistogramViewer();
+                    HBox hb2=viewer.HistogramViewer(threasholdedHistogram);
+                    addImg(Utils.bufferedToImage(thresholdingImage), hb2);
                 });
 
                 container.getChildren().add(applyBtn);
@@ -108,9 +114,12 @@ public class MainWindow extends VBox {
     private void addImg(ImagePlus imgp, HBox histogram){
 
         Image img = SwingFXUtils.toFXImage(imgp.getBufferedImage(), null);
-
+        addImg(img,histogram);
+    }
+    private void addImg(Image image, HBox histogram)
+    {
         Label imgContainer = new Label();
-        ImageView imageView = new ImageView(img);
+        ImageView imageView = new ImageView(image);
         imageView.setFitWidth(400);
         imageView.setPreserveRatio(true);
         imgContainer.setGraphic(imageView);
@@ -119,6 +128,5 @@ public class MainWindow extends VBox {
         borderPane.setPadding(new Insets(0,40,0,40));
 
         container.getChildren().addAll(borderPane);
-
     }
 }

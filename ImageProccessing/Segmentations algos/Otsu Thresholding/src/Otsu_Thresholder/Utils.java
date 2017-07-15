@@ -3,6 +3,8 @@ package Otsu_Thresholder;
 import ij.ImagePlus;
 import ij.plugin.DICOM;
 import ij.process.ImageConverter;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 
 import java.awt.image.BufferedImage;
 
@@ -45,5 +47,9 @@ public class Utils {
     }
     public static BufferedImage toGrayScale(BufferedImage bufferedImage){
         return bufferedImage;
+    }
+    public static Image bufferedToImage(BufferedImage bufferedImage)
+    {
+        return SwingFXUtils.toFXImage(bufferedImage, null);
     }
 }
