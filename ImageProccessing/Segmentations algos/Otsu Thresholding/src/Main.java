@@ -47,6 +47,7 @@ public class Main extends Application {
         long originalHistogram[] = histogram.getGrayHistogram();
         histogram.GenerateHistogram(thresholderingImage);
         long thresholderingImageHistogram[] = histogram.getGrayHistogram();
+
         //Use this to show the histogram
         HistogramViewer histogramViewer = new HistogramViewer();
         HBox hb=histogramViewer.HistogramViewer(histogram);
@@ -54,7 +55,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().add(new MainWindow());
 
-        Scene scene = new Scene(root, 1000, 500);
+        Scene scene = new Scene(root, 1280, 720);
 
         primaryStage.setTitle("Otsu Thresholding");
         primaryStage.setScene(scene);
