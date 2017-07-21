@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kareem.dontdisturb.MainActivityFragment"
+    android:background="@color/colorPrimaryDark"
+    tools:showIn="@layout/activity_main">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:layout_margin="10dp" android:orientation="vertical">
+
+    <TextView
+        style="@style/Text_label"
+        android:text="@string/from" />
+    <!--android:textSize="@dimen/text_size"-->
+    <TextView
+        android:id="@+id/from_clock"
+        style="@style/Clock_Default"
+        android:text="@string/default_from"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#444"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_height="2dp"/>
+    <TextView
+        style="@style/Text_label"
+        android:text="@string/to" />
+    <!--android:textSize="@dimen/text_size"-->
+    <TextView
+        android:id="@+id/to_clock"
+        style="@style/Clock_Default"
+        android:text="@string/default_to"
+        />
+</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

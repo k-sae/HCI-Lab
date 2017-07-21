@@ -57,6 +57,7 @@ public class MainWindow extends VBox {
                 container.getChildren().clear();
                 //TODO Pass to addImg function the histogram -in HBox-
 
+
                 ImagePlus imagePlus = (ImagePlus) imgp.clone();
 
                 Thresholder thresholder = new Thresholder();

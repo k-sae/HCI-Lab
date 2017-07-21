@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DontDisturb</string>
+    <string name="action_settings">Settings</string>
+    <string name="start">Start</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="default_to">7:00AM</string>
+    <string name="default_from">11:00PM</string>
+</resources>
