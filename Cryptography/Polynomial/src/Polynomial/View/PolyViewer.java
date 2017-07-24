@@ -43,9 +43,8 @@ public class PolyViewer extends HBox {
         //2-add Evaluate button ( dont add listeners i will add them)
         //3-do some tweaks (padding width whatever
         polynomialViewPane.getChildren().add(polynomialChart);
-        vBox.getChildren().addAll(basicPolynomialViewer,polynomialViewPane);
         equation = new ImageView();
-        vBox.getChildren().addAll(basicPolynomialViewer,equation );
+        vBox.getChildren().addAll(basicPolynomialViewer,equation,polynomialViewPane);
         getChildren().addAll(vBox);
     }
     public void setPolynomial(Polynomial polynomial)
