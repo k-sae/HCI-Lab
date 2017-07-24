@@ -8,9 +8,11 @@ import java.util.Random;
  */
 public class Polynomial {
     private BigInteger[] coefficients;
+    private int degree;
 
     public Polynomial(BigInteger[] coefficients){
         this.coefficients = coefficients;
+        this.degree = this.coefficients.length - 1;
     }
 
     //TODO
@@ -37,6 +39,59 @@ public class Polynomial {
     //TODO
     @Override
     public String toString() {
-        return super.toString();
+        String formula = "";
+
+        for(int i = 0; i <= this.degree; i++){
+            int power = (this.degree - i);
+
+            //If the coeff is 0 pass the loop and don't print it!
+            if(coefficients[i].intValue() == 0){
+
+                continue;
+            }
+
+            //If this coeff is the first one
+            if(formula.equals("")){
+
+                //If the coeff equal 1, don't print it
+                if(coefficients[i].abs().intValue() == 1) {
+
+                    //If the coeff is negative print the - sign
+                    if(coefficients[i].intValue() < 0){
+
+                        formula += "-";
+                    }
+                //If the coeff not equal 1, print it
+                }else
+                    formula += coefficients[i];
+            }else{
+
+                //If the coeff is positive print the + sign
+                if(coefficients[i].intValue() > 0){
+
+                    formula += " + ";
+                //If the coeff is negative print the - sign
+                }else {
+
+                    formula += " - ";
+                }
+                //If the coeff is not equal 1, print it, else don't print 1, except if the power equal 0 -The last coeff-
+                if(coefficients[i].abs().intValue() != 1 || power == 0)
+                    formula += coefficients[i].abs();
+            }
+
+            //If the power greater than 0 print X without the power
+            if(power > 0){
+
+                formula += "X";
+            }
+            //If the power greater than 1 print the power
+            if(power > 1){
+
+                formula += "^" + power;
+            }
+        }
+
+        return formula;
     }
 }
