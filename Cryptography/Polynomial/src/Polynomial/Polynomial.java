@@ -19,10 +19,10 @@ public class Polynomial {
     public static Polynomial rand()
     {
         Random rand = new Random();
-        int deg=rand.nextInt(9) + 1;
+        int deg=rand.nextInt(9);
         BigInteger[] randcoefficients=new BigInteger[deg+1];
         for(int i=0;i<deg+1;i++){
-           randcoefficients[i]=BigInteger.valueOf(rand.nextInt(1000));
+           randcoefficients[i]=BigInteger.valueOf((-100)+(rand.nextInt(10)* ((10 - (-10)) + 1)));
         }
         Polynomial randp=new Polynomial(randcoefficients);
         return randp;
@@ -34,7 +34,6 @@ public class Polynomial {
            for (int i = degree ; i>=0;i--){
 
                result=result.add(coefficients[i].multiply(x.pow(degree-i)));
-               System.out.println(result.intValue());
            }
         return result;
     }

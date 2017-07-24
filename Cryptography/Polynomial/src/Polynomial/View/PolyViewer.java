@@ -53,7 +53,6 @@ public class PolyViewer extends HBox {
     {
         this.polynomial = polynomial;
 
-            System.out.println(polynomial.evaluate(new BigDecimal(0).toBigInteger()).doubleValue());
 
 
         updateUi();
