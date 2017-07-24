@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.stage.Stage;
 
+import java.math.BigInteger;
+
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
