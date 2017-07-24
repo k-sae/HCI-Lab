@@ -1,5 +1,6 @@
 package Polynomial;
 
+import Polynomial.View.MainWindow;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +10,10 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.math.BigInteger;
-
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
         Pane graph =new Pane();
         PolynomialView polynomialView =new PolynomialView() {
             @Override
@@ -31,6 +30,9 @@ public class Main extends Application {
         polynomialView.start();
 
         primaryStage.setTitle("Hello World");
+
+        Parent root = new MainWindow();
+        primaryStage.setTitle("Polynomial Evaluator");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
