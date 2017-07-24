@@ -19,8 +19,11 @@ public class Polynomial {
     }
     //TODO
     public BigInteger evaluate(BigInteger x){
-
-        return null;
+           BigInteger result = new BigInteger("0");
+           for (int i =0 ; i<coefficients.length;i++){
+               result= coefficients[i].multiply(x);
+           }
+        return result;
     }
 
     //TODO
