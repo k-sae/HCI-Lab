@@ -7,7 +7,7 @@ import javafx.scene.chart.XYChart;
 /**
  * Created by PC - MeiR on 7/24/2017.
  */
-public abstract   class PolynomialView implements Runnable{
+public abstract   class PolynomialView extends Thread{
     private int width , height ;
     private LineChart<Number,Number> chart ;
     private     NumberAxis xAxis , yAxis ;
@@ -26,7 +26,7 @@ public abstract   class PolynomialView implements Runnable{
         xAxis=new NumberAxis();
         yAxis =new NumberAxis();
         chart =new LineChart<Number, Number>(xAxis,yAxis);
-        line =new XYChart.Series<>();
+
 
     }
 
@@ -44,7 +44,7 @@ onDraw(this.chart);
 
 
     private void generateLine(){
-        this.line=null;
+        line =new XYChart.Series<>();
         for (double x = -100.0;x<=100.0;x+=1.0){
             // TODO replace y with this.polynomial.evaluate(x)
 
