@@ -42,7 +42,7 @@ public class PolyViewer extends HBox {
     {
         basicPolynomialViewer.setText(polynomial.toString());
         TeXFormula tex = new TeXFormula(polynomial.toString());
-        java.awt.Image awtImage = tex.createBufferedImage(TeXConstants.STYLE_TEXT, 12, java.awt.Color.BLACK, null);
+        java.awt.Image awtImage = tex.createBufferedImage(TeXConstants.STYLE_TEXT, 14, java.awt.Color.BLACK, null);
         Image fxImage = SwingFXUtils.toFXImage((BufferedImage) awtImage, null);
          equation.setImage(fxImage);
     }
