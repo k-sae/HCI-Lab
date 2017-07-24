@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 
@@ -35,6 +36,7 @@ public class PolyViewer extends HBox {
     {
         polynomialViewPane = new Pane();
         basicPolynomialViewer = new Label();
+        basicPolynomialViewer.setFont(Font.font(20));
         VBox vBox = new VBox();
         polynomialChart = new LineChart<Number, Number>(new NumberAxis(),new NumberAxis());
 //        vBox.setPadding(new Insets(20));
@@ -75,7 +77,7 @@ public class PolyViewer extends HBox {
         };
         polynomialView.start();
         TeXFormula tex = new TeXFormula(polynomial.toString());
-        java.awt.Image awtImage = tex.createBufferedImage(TeXConstants.STYLE_TEXT, 14, java.awt.Color.BLACK, null);
+        java.awt.Image awtImage = tex.createBufferedImage(TeXConstants.STYLE_TEXT, 24, java.awt.Color.BLACK, null);
         Image fxImage = SwingFXUtils.toFXImage((BufferedImage) awtImage, null);
          equation.setImage(fxImage);
     }
