@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -16,7 +15,6 @@ import javafx.scene.text.Font;
  * Created by billy on 2017-07-25.
  */
 public class PolyEvaluator extends VBox{
-    private static PolyViewer polyViewer = new PolyViewer();
     public PolyEvaluator(){
         setLayout();
     }
@@ -43,15 +41,12 @@ public class PolyEvaluator extends VBox{
         container.setAlignment(Pos.TOP_CENTER);
         Button generate    = new Button("Generate");
         generate.setOnMouseClicked(this::onGenerateMouseClick);
-        container.getChildren().addAll(generate, polyViewer);
+        container.getChildren().addAll(generate);
         return container;
     }
 
     private void onGenerateMouseClick(MouseEvent mouseEvent) {
         Polynomial polynomial  = Polynomial.rand();
-        p(polynomial);
-    }
-    public static void p(Polynomial pol){
-        polyViewer.setPolynomial(pol);
+        SecWindow.Plot(polynomial);
     }
 }

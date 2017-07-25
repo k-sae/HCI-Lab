@@ -4,15 +4,10 @@ import Polynomial.Polynomial;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import org.apache.commons.math.MathRuntimeException;
-import org.apache.commons.math.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeForm;
-import org.apache.commons.math.analysis.polynomials.PolynomialSplineFunction;
-import org.apache.commons.math.analysis.solvers.NewtonSolver;
 
 import java.math.BigInteger;
 
@@ -87,10 +82,10 @@ public class PolyInterpolater extends VBox {
     }
 
     private void onInterpolateClick() {
-        Polynomial polynomial  = Polynomial.rand();
-        //polyViewer.setPolynomial(polynomial);
+
         double xPoints[] = new double[degree+1];
         double yPoints[] = new double[degree+1];
+
         for (int i = 0; i < degree+1; i++) {
             xPoints[i] = Double.parseDouble(x[i].getText());
             yPoints[i] = Double.parseDouble(y[i].getText());
@@ -100,12 +95,14 @@ public class PolyInterpolater extends VBox {
         PolynomialFunctionLagrangeForm polynomialFunctionLagrangeForm = new PolynomialFunctionLagrangeForm(xPoints,yPoints);
         length = polynomialFunctionLagrangeForm.getCoefficients().length;
         BigInteger[] coefficients = new BigInteger[length];
+
         for (int i = length - 1; i >=0 ; i--) {
             System.out.println(polynomialFunctionLagrangeForm.getCoefficients()[i]);
             coefficients[i] = new BigInteger(""+(int)polynomialFunctionLagrangeForm.getCoefficients()[length - 1 - i]);
         }
+
         Polynomial p = new Polynomial(coefficients);
         System.out.println(p.toString());
-        PolyEvaluator.p(p);
+        SecWindow.Plot(p);
     }
 }
