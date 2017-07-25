@@ -28,9 +28,8 @@ public class PolyInterpolater extends VBox {
         setPadding(new Insets(20));
         setSpacing(20);
 
-        Label title = new Label("Polynomial Interpolater");
+        Label title = new Label("Polynomial Interpolation");
         title.setFont(Font.font(24));
-
 
         getChildren().addAll(title, new Separator());
         setContainer();
@@ -38,13 +37,15 @@ public class PolyInterpolater extends VBox {
     private void setContainer()
     {
         points = new VBox();
-        Button interpolateBtn = new Button("Interpolate");
         Label label = new Label("Enter the polynomial degree:");
         label.setFont(Font.font(18));
         NumericTextField numericTextField = new NumericTextField();
         numericTextField.setPromptText("Enter the polynomial degree!");
         numericTextField.setMaxWidth(170);
+
         getChildren().addAll(label, numericTextField);
+        Button interpolateBtn = new Button("Interpolate");
+
         numericTextField.setOnKeyReleased(event -> {
             points.getChildren().clear();
             getChildren().removeAll(points, interpolateBtn);
@@ -103,12 +104,10 @@ public class PolyInterpolater extends VBox {
         BigInteger[] coefficients = new BigInteger[length];
 
         for (int i = length - 1; i >=0 ; i--) {
-            System.out.println(polynomialFunctionLagrangeForm.getCoefficients()[i]);
             coefficients[i] = new BigInteger(""+(int)polynomialFunctionLagrangeForm.getCoefficients()[length - 1 - i]);
         }
 
-        Polynomial p = new Polynomial(coefficients);
-        System.out.println(p.toString());
-        SecWindow.Plot(p);
+        Polynomial poly = new Polynomial(coefficients);
+        SecWindow.Plot(poly);
     }
 }

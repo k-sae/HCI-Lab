@@ -24,13 +24,11 @@ public class PolyEvaluator extends VBox{
 
     private void setLayout(){
         setAlignment(Pos.TOP_CENTER);
-        setPadding(new Insets(20));
+        setPadding(new Insets(10));
         setSpacing(20);
 
         Label title = new Label("Polynomial Evaluator");
         title.setFont(Font.font(24));
-
-        setContainer();
 
         ScrollPane scrollPane = new ScrollPane(setContainer());
         scrollPane.setFitToWidth(true);
@@ -54,14 +52,14 @@ public class PolyEvaluator extends VBox{
 
         container.getChildren().clear();
         Label label = new Label("Enter the value of the x:");
-        label.setFont(Font.font(16));
+        label.setFont(Font.font(18));
 
         NumericTextField numericTextField = new NumericTextField();
         numericTextField.setPromptText("X value");
         numericTextField.setMaxWidth(60);
 
         Label resultLbl = new Label();
-        resultLbl.setFont(Font.font(16));
+        resultLbl.setFont(Font.font(18));
 
         container.setAlignment(Pos.TOP_CENTER);
         container.getChildren().addAll(label, numericTextField, resultLbl);
@@ -73,7 +71,6 @@ public class PolyEvaluator extends VBox{
 
             }
         });
-
 
     }
 }

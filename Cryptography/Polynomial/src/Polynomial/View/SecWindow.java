@@ -46,6 +46,10 @@ public class SecWindow extends BorderPane {
         Label title = new Label("Polynomial");
         title.setFont(Font.font(30));
 
+        VBox vBox = new VBox(20);
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.getChildren().addAll(title, new Separator());
+
         ScrollPane PVscrollPane = new ScrollPane(polyViewer);
         PVscrollPane.setFitToWidth(true);
         PVscrollPane.setStyle("-fx-background-color:transparent;");
@@ -55,10 +59,6 @@ public class SecWindow extends BorderPane {
         PIscrollPane.setFitToWidth(true);
         PIscrollPane.setStyle("-fx-background-color:transparent;");
         PIscrollPane.setPrefWidth(600);
-
-        VBox vBox = new VBox(20);
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.getChildren().addAll(title, new Separator());
 
         Button backBtn = new Button("<-Back");
         backBtn.setOnAction(event -> MainWindow.Back());
