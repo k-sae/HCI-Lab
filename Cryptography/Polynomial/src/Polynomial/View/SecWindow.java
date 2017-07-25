@@ -31,9 +31,10 @@ import java.io.IOException;
  * Created by billy on 2017-07-25.
  */
 public class SecWindow extends BorderPane {
-    private static PolyViewer polyViewer = new PolyViewer();
+    private static PolyViewer polyViewer;
     private Parent node;
     public SecWindow(Parent node){
+        polyViewer = new PolyViewer();
         this.node = node;
         setLayout();
     }
@@ -45,14 +46,15 @@ public class SecWindow extends BorderPane {
         Label title = new Label("Polynomial");
         title.setFont(Font.font(30));
 
-        ScrollPane PEscrollPane = new ScrollPane(polyViewer);
-        PEscrollPane.setFitToWidth(true);
-        PEscrollPane.setStyle("-fx-background-color:transparent;");
+        ScrollPane PVscrollPane = new ScrollPane(polyViewer);
+        PVscrollPane.setFitToWidth(true);
+        PVscrollPane.setStyle("-fx-background-color:transparent;");
+        PVscrollPane.setPrefWidth(640);
 
         ScrollPane PIscrollPane = new ScrollPane(node);
         PIscrollPane.setFitToWidth(true);
         PIscrollPane.setStyle("-fx-background-color:transparent;");
-        PIscrollPane.setPrefWidth(400);
+        PIscrollPane.setPrefWidth(600);
 
         VBox vBox = new VBox(20);
         vBox.setAlignment(Pos.TOP_CENTER);
@@ -63,7 +65,7 @@ public class SecWindow extends BorderPane {
 
         setTop(vBox);
         setLeft(PIscrollPane);
-        setRight(PEscrollPane);
+        setRight(PVscrollPane);
         setBottom(backBtn);
 
         setAlignment(this.getTop(), Pos.TOP_CENTER);

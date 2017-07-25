@@ -10,7 +10,6 @@ import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
 import java.math.BigInteger;
 
 /**
@@ -58,7 +57,8 @@ public class PolyEvaluator extends VBox{
         label.setFont(Font.font(16));
 
         NumericTextField numericTextField = new NumericTextField();
-        numericTextField.setMaxWidth(40);
+        numericTextField.setPromptText("X value");
+        numericTextField.setMaxWidth(60);
 
         Label resultLbl = new Label();
         resultLbl.setFont(Font.font(16));
@@ -67,7 +67,7 @@ public class PolyEvaluator extends VBox{
         container.getChildren().addAll(label, numericTextField, resultLbl);
 
         numericTextField.setOnKeyReleased(event -> {
-            if(!numericTextField.getText().equals("")) {
+            if(!numericTextField.getText().equals("") && !numericTextField.getText().equals("-") && !numericTextField.getText().contains(".")) {
                 BigInteger result = polynomial.evaluate(new BigInteger(numericTextField.getText()));
                 resultLbl.setText("The result is: " + result);
 

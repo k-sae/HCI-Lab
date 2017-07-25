@@ -17,8 +17,8 @@ import java.math.BigInteger;
 public class PolyInterpolater extends VBox {
     private int degree;
     private VBox points;
-    private TextField x[];
-    private TextField y[];
+    private NumericTextField x[];
+    private NumericTextField y[];
     public PolyInterpolater(){
         setLayout();
     }
@@ -39,12 +39,16 @@ public class PolyInterpolater extends VBox {
     {
         points = new VBox();
         Button interpolateBtn = new Button("Interpolate");
+        Label label = new Label("Enter the polynomial degree:");
+        label.setFont(Font.font(18));
         NumericTextField numericTextField = new NumericTextField();
-        getChildren().add(numericTextField);
+        numericTextField.setPromptText("Enter the polynomial degree!");
+        numericTextField.setMaxWidth(170);
+        getChildren().addAll(label, numericTextField);
         numericTextField.setOnKeyReleased(event -> {
             points.getChildren().clear();
             getChildren().removeAll(points, interpolateBtn);
-            if(!numericTextField.getText().equals("") && !numericTextField.getText().contains("-")) {
+            if(!numericTextField.getText().equals("") && !numericTextField.getText().contains("-") && !numericTextField.getText().equals("0")) {
                 points = update(Integer.parseInt(numericTextField.getText()));
                 getChildren().addAll(points, interpolateBtn);
             }
@@ -58,20 +62,22 @@ public class PolyInterpolater extends VBox {
     private VBox update(int degree){
         VBox container = new VBox(10);
         this.degree = degree;
-        x = new TextField[degree+1];
-        y = new TextField[degree+1];
+        x = new NumericTextField[degree+1];
+        y = new NumericTextField[degree+1];
         for(int i = 0; i < degree+1; i++){
             HBox record = new HBox(10);
             record.setAlignment(Pos.CENTER);
 
             Label noOfPointslbl = new Label("P"+ (i+1));
 
-            x[i] = new TextField();
-            x[i].setMaxWidth(110);
-            y[i] = new TextField();
-            y[i].setMaxWidth(110);
+            x[i] = new NumericTextField();
+            x[i].setPromptText("X" + (i+1));
+            x[i].setMaxWidth(60);
+            y[i] = new NumericTextField();
+            y[i].setPromptText("Y" + (i+1));
+            y[i].setMaxWidth(60);
             if(i==0){
-                record.getChildren().addAll(new VBox(20,new Label("No."),noOfPointslbl), new VBox(20,new Label("X"),x[i]), new VBox(20,new Label("Y"),y[i]));
+                record.getChildren().addAll(new VBox(20,new Label("No"),noOfPointslbl), new VBox(20,new Label("X"),x[i]), new VBox(20,new Label("Y"),y[i]));
             }else {
 
                 record.getChildren().addAll(noOfPointslbl, x[i], y[i]);
