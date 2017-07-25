@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 
+
 import java.awt.image.BufferedImage;
 
 import java.math.BigDecimal;
