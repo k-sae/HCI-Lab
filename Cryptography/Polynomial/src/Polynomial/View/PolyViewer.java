@@ -2,12 +2,19 @@ package Polynomial.View;
 
 import Polynomial.Polynomial;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import org.scilab.forge.jlatexmath.TeXConstants;
+import org.scilab.forge.jlatexmath.TeXFormula;
+
+import java.awt.image.BufferedImage;
 
 import java.math.BigDecimal;
 
@@ -18,8 +25,12 @@ public class PolyViewer extends HBox {
     private PolynomialView polynomialView;
     private Polynomial polynomial;
     private Label basicPolynomialViewer;
+
     private Pane polynomialViewPane;
     private LineChart<Number, Number> polynomialChart;
+
+    private ImageView equation;
+
     public PolyViewer()
     {
         polynomialViewPane = new Pane();
@@ -33,6 +44,8 @@ public class PolyViewer extends HBox {
         //3-do some tweaks (padding width whatever
         polynomialViewPane.getChildren().add(polynomialChart);
         vBox.getChildren().addAll(basicPolynomialViewer,polynomialViewPane);
+        equation = new ImageView();
+        vBox.getChildren().addAll(basicPolynomialViewer,equation );
         getChildren().addAll(vBox);
     }
     public void setPolynomial(Polynomial polynomial)
@@ -62,6 +75,10 @@ public class PolyViewer extends HBox {
             }
         };
         polynomialView.start();
+        TeXFormula tex = new TeXFormula(polynomial.toString());
+        java.awt.Image awtImage = tex.createBufferedImage(TeXConstants.STYLE_TEXT, 14, java.awt.Color.BLACK, null);
+        Image fxImage = SwingFXUtils.toFXImage((BufferedImage) awtImage, null);
+         equation.setImage(fxImage);
     }
 
 }
