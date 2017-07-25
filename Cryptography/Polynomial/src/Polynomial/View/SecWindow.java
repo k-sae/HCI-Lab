@@ -52,11 +52,11 @@ public class SecWindow extends BorderPane {
         ScrollPane PIscrollPane = new ScrollPane(node);
         PIscrollPane.setFitToWidth(true);
         PIscrollPane.setStyle("-fx-background-color:transparent;");
+        PIscrollPane.setPrefWidth(400);
 
         VBox vBox = new VBox(20);
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.getChildren().addAll(title, new Separator());
-        PIscrollPane.setPrefWidth(400);
 
         Button backBtn = new Button("<-Back");
         backBtn.setOnAction(event -> MainWindow.Back());
@@ -66,7 +66,7 @@ public class SecWindow extends BorderPane {
         setRight(PEscrollPane);
         setBottom(backBtn);
 
-        setAlignment(this.getTop(),Pos.TOP_CENTER);
+        setAlignment(this.getTop(), Pos.TOP_CENTER);
     }
 
     public static void Plot(Polynomial pol){
