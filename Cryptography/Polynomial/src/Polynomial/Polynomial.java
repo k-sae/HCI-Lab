@@ -31,8 +31,9 @@ public class Polynomial {
     public BigInteger evaluate(BigInteger x){
 
            BigInteger result = new BigInteger("0");
-           for (int i = coefficients.length-1 ; i>=0;i--){
-               result.add(coefficients[i].multiply(x.pow(i)));
+           for (int i = degree ; i>=0;i--){
+
+               result.add(coefficients[i].multiply(x.pow(degree-i)));
            }
         return result;
     }
