@@ -20,6 +20,8 @@ import org.apache.commons.math.analysis.polynomials.PolynomialSplineFunction;
 import org.apache.commons.math.analysis.solvers.NewtonSolver;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Main extends Application {
@@ -30,13 +32,25 @@ public class Main extends Application {
         primaryStage.setTitle("Polynomial Evaluator");
         primaryStage.getIcons().add(new Image("file:img/icon.jpg"));
         primaryStage.setScene(new Scene(root, 1280,720 ));
-        double x[] = { -1.0, 0.0, 1.0,2.0 };
-        double y[] = { 1.0, 1.0, 3.0,1.0};
+        double x[] = { 2,-2};
+        double y[] = { 8,-4};
         PolynomialFunctionLagrangeForm polynomialFunctionLagrangeForm  = new PolynomialFunctionLagrangeForm(x,y);
+        int coefficients_size = polynomialFunctionLagrangeForm.getCoefficients().length ;
+        double[] coefficients_Double = polynomialFunctionLagrangeForm.getCoefficients();
+        BigInteger [] coefficients = new BigInteger [coefficients_size];
         System.out.println("coefficients:");
-        for (int i = polynomialFunctionLagrangeForm.getCoefficients().length - 1; i >=0 ; i--) {
-            System.out.println(polynomialFunctionLagrangeForm.getCoefficients()[i]);
+        for (int i =coefficients_size-1; i >=0 ; i--) {
+            System.out.println(coefficients_Double[i]);
+
         }
+      // lop for  cast  double to Big integer
+        for (int i = 0 ; i< coefficients_size;i++) {
+            long c = (long) coefficients_Double[coefficients_size - i-1];
+            coefficients[i] = BigInteger.valueOf(c);
+        }
+
+       Polynomial polynomial = new Polynomial(coefficients);
+        System.out.println(polynomial.toString());
         primaryStage.show();
     }
 
