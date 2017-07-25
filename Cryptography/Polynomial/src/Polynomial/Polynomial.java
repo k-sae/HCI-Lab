@@ -19,19 +19,21 @@ public class Polynomial {
     public static Polynomial rand()
     {
         Random rand = new Random();
-        int deg=rand.nextInt(5) + 1;
+        int deg=rand.nextInt(9);
         BigInteger[] randcoefficients=new BigInteger[deg+1];
         for(int i=0;i<deg+1;i++){
-           randcoefficients[i]=BigInteger.valueOf(rand.nextInt(1000) + 1);
+           randcoefficients[i]=BigInteger.valueOf((-100)+(rand.nextInt(10)* ((10 - (-10)) + 1)));
         }
         Polynomial randp=new Polynomial(randcoefficients);
         return randp;
     }
     //TODO
     public BigInteger evaluate(BigInteger x){
+
            BigInteger result = new BigInteger("0");
-           for (int i =0 ; i<coefficients.length;i++){
-               result= coefficients[i].multiply(x);
+           for (int i = degree ; i>=0;i--){
+
+               result=result.add(coefficients[i].multiply(x.pow(degree-i)));
            }
         return result;
     }

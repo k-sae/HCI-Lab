@@ -1,9 +1,9 @@
 package Polynomial;
 
 import Polynomial.View.MainWindow;
+import Polynomial.View.PolynomialView;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -18,6 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+     /*
         Pane graph =new Pane();
         PolynomialView polynomialView =new PolynomialView() {
             @Override
@@ -32,10 +33,18 @@ public class Main extends Application {
             }
         };
         polynomialView.start();
+        */
         Parent root = new MainWindow();
         primaryStage.setTitle("Polynomial Evaluator");
         primaryStage.getIcons().add(new Image("file:img/icon.jpg"));
-        primaryStage.setScene(new Scene(root, 400, 300));
+       /* primaryStage.setScene(new Scene(root, 400, 300));
+
+        primaryStage.setTitle("Hello World");
+
+        Parent root = new MainWindow();
+        primaryStage.setTitle("Polynomial Evaluator");*/
+        primaryStage.setScene(new Scene(root, 1280,720 ));
+
         primaryStage.show();
     }
 
