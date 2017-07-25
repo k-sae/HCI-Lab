@@ -33,7 +33,8 @@ public class Polynomial {
            BigInteger result = new BigInteger("0");
            for (int i = degree ; i>=0;i--){
 
-               result.add(coefficients[i].multiply(x.pow(degree-i)));
+               result=result.add(coefficients[i].multiply(x.pow(degree-i)));
+               System.out.println(result.intValue());
            }
         return result;
     }
