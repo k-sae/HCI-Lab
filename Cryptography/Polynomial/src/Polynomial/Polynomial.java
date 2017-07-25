@@ -96,4 +96,12 @@ public class Polynomial {
 
         return formula;
     }
+
+    public BigInteger[] getCoefficients() {
+        return coefficients;
+    }
+
+    public int getDegree() {
+        return degree;
+    }
 }
