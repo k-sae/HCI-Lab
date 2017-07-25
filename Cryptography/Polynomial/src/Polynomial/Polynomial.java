@@ -29,9 +29,10 @@ public class Polynomial {
     }
     //TODO
     public BigInteger evaluate(BigInteger x){
+
            BigInteger result = new BigInteger("0");
-           for (int i =0 ; i<coefficients.length;i++){
-               result= coefficients[i].multiply(x);
+           for (int i = coefficients.length-1 ; i>=0;i--){
+               result.add(coefficients[i].multiply(x.pow(i)));
            }
         return result;
     }

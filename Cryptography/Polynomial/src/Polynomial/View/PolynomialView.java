@@ -1,8 +1,12 @@
-package Polynomial;
+package Polynomial.View;
 
+import Polynomial.Polynomial;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * Created by PC - MeiR on 7/24/2017.
@@ -15,17 +19,11 @@ public abstract   class PolynomialView extends Thread{
     private Polynomial polynomial;
     private static PolynomialView instance;
 
-//    public static PolynomialView GetInstance() {
-//        if (instance==null){
-//
-//           instance= new PolynomialView(){};
-//        }
-//        return instance;
-//    }
-    public PolynomialView(){
+    public PolynomialView(Polynomial polynomial){
         xAxis=new NumberAxis();
         yAxis =new NumberAxis();
-        chart =new LineChart<Number, Number>(xAxis,yAxis);
+        line =new XYChart.Series<>();
+        this.polynomial=polynomial;
 
 
     }
@@ -34,9 +32,12 @@ public abstract   class PolynomialView extends Thread{
 
     @Override
     public void run() {
-generateLine();
-drawPolynomial();
-onDraw(this.chart);
+
+        generateLine();
+        drawPolynomial();
+        onDraw(this.chart);
+        System.out.println(this.line.getData());
+
 
     }
 
@@ -44,15 +45,16 @@ onDraw(this.chart);
 
 
     private void generateLine(){
-        line =new XYChart.Series<>();
-        for (double x = -100.0;x<=100.0;x+=1.0){
+
+        for (double x = -10.0;x<=10.0;x+=1.0){
             // TODO replace y with this.polynomial.evaluate(x)
 
-            this.line.getData().add(new XYChart.Data<>(x,x));
+            this.line.getData().add(new XYChart.Data<>(x,this.polynomial.evaluate(new BigDecimal(x).toBigInteger()).doubleValue()*0.5));
         }
 
     }
     private void drawPolynomial(){
+        chart =new LineChart<Number, Number>(xAxis,yAxis);
         this.chart.getData().add(this.line);
     }
     public void setPolynomial(Polynomial polynomial){
