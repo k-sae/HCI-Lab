@@ -36,7 +36,6 @@ public abstract   class PolynomialView extends Thread{
         generateLine();
         drawPolynomial();
         onDraw(this.chart);
-        System.out.println(this.line.getData());
 
 
     }
