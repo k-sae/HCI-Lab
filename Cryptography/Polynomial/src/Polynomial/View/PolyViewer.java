@@ -46,7 +46,7 @@ public class PolyViewer extends HBox {
         //3-do some tweaks (padding width whatever
         polynomialViewPane.getChildren().add(polynomialChart);
         equation = new ImageView();
-        vBox.getChildren().addAll(basicPolynomialViewer,equation,polynomialViewPane);
+        vBox.getChildren().addAll(equation,polynomialViewPane);
         getChildren().addAll(vBox);
     }
     public void setPolynomial(Polynomial polynomial)
