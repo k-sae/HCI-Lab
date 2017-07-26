@@ -23,6 +23,32 @@ public class Secret {
         p[1]=P2;
         return p;
     }
+    public static BigInteger[] EvaluateMultiplactionPoints (Polynomial[] p,BigInteger btats){
+        BigInteger[] coff ;
+        BigInteger points[]=new BigInteger[18];
+        int k=0;
+        for(int i=0;i<5;i++) {
+            coff = p[k].getCoefficients();
+            points[i] = coff[1];
+            points[i+1] = p[0].evaluate(coff[1]);
+            points[i+2] = coff[1];
+            points[i+3] = p[1].evaluate(coff[1]);
+            if(i==0){  i=3;}
+            k++;
+        }
+        points[8]=btats;
+        points[9]=p[0].evaluate(btats);
+        points[10]=btats;
+        points[11]=p[1].evaluate(btats);
+        points[12]=points[0];
+        points[13]=points[1].multiply(points[3]);
+        points[14]=points[4];
+        points[15]=points[5].multiply(points[7]);
+        points[16]=btats;
+        points[17]=points[9].multiply(points[11]);
+        return points;
+
+    }
     public static BigInteger[] EvaluatePoints (Polynomial[] p){
         BigInteger[] coff ;
         BigInteger points[]=new BigInteger[12];
