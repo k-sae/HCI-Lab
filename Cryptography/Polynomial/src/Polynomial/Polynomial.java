@@ -16,10 +16,10 @@ public class Polynomial {
     }
 
     //TODO
-    public static Polynomial rand()
+    public static Polynomial rand(int degree)
     {
         Random rand = new Random();
-        int deg=rand.nextInt(9);
+        int deg=rand.nextInt(degree)+1;
         BigInteger[] randcoefficients=new BigInteger[deg+1];
         for(int i=0;i<deg+1;i++){
            randcoefficients[i]=BigInteger.valueOf((-100)+(rand.nextInt(10)* ((10 - (-10)) + 1)));
@@ -96,6 +96,7 @@ public class Polynomial {
 
         return formula;
     }
+    public void Setcofficients(BigInteger[] coff){this.coefficients=coff;}
 
     public BigInteger[] getCoefficients() {
         return coefficients;

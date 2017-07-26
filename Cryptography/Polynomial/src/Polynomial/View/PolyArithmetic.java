@@ -48,8 +48,8 @@ public class PolyArithmetic extends VBox {
 
         container.getChildren().clear();
 
-        Polynomial poly1 = Polynomial.rand();
-        Polynomial poly2 = Polynomial.rand();
+        Polynomial poly1 = Polynomial.rand(9);
+        Polynomial poly2 = Polynomial.rand(9);
 
         TeXFormula tex = new TeXFormula(poly1.toString());
         java.awt.Image awtImage = tex.createBufferedImage(TeXConstants.STYLE_TEXT, 16, java.awt.Color.BLACK, null);

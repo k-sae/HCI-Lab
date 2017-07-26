@@ -47,7 +47,7 @@ public class PolyEvaluator extends VBox{
     }
 
     private void onGenerateMouseClick(MouseEvent mouseEvent) {
-        Polynomial polynomial = Polynomial.rand();
+        Polynomial polynomial = Polynomial.rand(9);
         SecWindow.Plot(polynomial);
 
         container.getChildren().clear();

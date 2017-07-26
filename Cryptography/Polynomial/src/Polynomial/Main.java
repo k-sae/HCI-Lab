@@ -11,7 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        Secret.Secretaddition(5,3);
         Parent root = new MainWindow(primaryStage);
         primaryStage.setTitle("Polynomial Evaluator");
         primaryStage.getIcons().add(new Image("file:img/icon.jpg"));
