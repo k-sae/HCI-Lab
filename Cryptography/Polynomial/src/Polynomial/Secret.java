@@ -36,10 +36,10 @@ public class Secret {
           if(i==0){  i=3;}
             k++;
         }
-        points[9]=points[0];
-        points[10]=points[1].add(points[3]);
-        points[11]=points[4];
-        points[12]=points[5].add(points[7]);
+        points[8]=points[0];
+        points[9]=points[1].add(points[3]);
+        points[10]=points[4];
+        points[11]=points[5].add(points[7]);
             return points;
     }
 }
