@@ -35,12 +35,14 @@ public class MainWindow extends VBox {
         Button evaluateBtn = new Button("Evaluate a Polynomial");
         Button interpolateBtn = new Button("Interpolate a Polynomials");
         Button arithmeticBtn = new Button("Add/Multiply two Polynomials");
+        Button secretArithmeticBtn = new Button("Secret Add/Multiply two Polynomials");
 
         evaluateBtn.setOnAction(event -> changeScene(new SecWindow(new PolyEvaluator())));
         interpolateBtn.setOnAction(event -> changeScene(new SecWindow(new PolyInterpolater())));
         arithmeticBtn.setOnAction(event -> changeScene(new SecWindow(new PolyArithmetic())));
+        secretArithmeticBtn.setOnAction(event -> changeScene(new SecWindow(new PolSecretArithmetic())));
 
-        getChildren().addAll(title, new Separator(), chooseLbl, evaluateBtn, interpolateBtn, arithmeticBtn);
+        getChildren().addAll(title, new Separator(), chooseLbl, evaluateBtn, interpolateBtn, arithmeticBtn, secretArithmeticBtn);
 
     }
     private void changeScene(Parent node){
