@@ -13,8 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Polynomial p[]=Secret.polynimalGenerate(3,5);
-        BigInteger[] points= Secret.EvaluateMultiplactionPoints(p,BigInteger.valueOf(7));
         Parent root = new MainWindow(primaryStage);
         primaryStage.setTitle("Polynomial Evaluator");
         primaryStage.getIcons().add(new Image("file:img/icon.jpg"));
