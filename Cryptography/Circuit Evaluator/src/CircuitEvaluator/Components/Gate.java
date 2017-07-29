@@ -12,11 +12,11 @@ public abstract class Gate<T> {
 
     public abstract T computeOutput();
 
-    public Wire getOutput() {
+    public Wire<T> getOutput() {
         return output;
     }
 
-    public void setOutput(Wire output) {
+    public void setOutput(Wire<T> output) {
         this.output = output;
     }
     public ArrayList<Wire<T>> getInputWires() {
