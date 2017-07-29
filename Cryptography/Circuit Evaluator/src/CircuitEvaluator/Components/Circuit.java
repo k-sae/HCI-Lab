@@ -14,7 +14,14 @@ public class Circuit<T> {
     }
     //TODO
     public T evaluate(){
+        Wire start=null;
+        for (Gate gate:gates) {
+            if (gate.getOutput().getOutputGate()==null)
+                start = gate.getOutput();
+        }
         gates.get(0).computeOutput();
         return null;
     }
+
+    
 }
