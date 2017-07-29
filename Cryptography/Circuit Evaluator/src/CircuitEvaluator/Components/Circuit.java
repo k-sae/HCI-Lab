@@ -19,9 +19,19 @@ public class Circuit<T> {
             if (gate.getOutput().getOutputGate()==null)
                 start = gate.getOutput();
         }
-        gates.get(0).computeOutput();
+        computeRecursively(start);
+
         return null;
     }
 
-    
+    private void computeRecursively(Wire<T> wire){
+        if (wire.getInputGate().getInputWires().get(0).getInputGate()!=null)
+            computeRecursively(wire.getInputGate().getInputWires().get(0));
+       else if (wire.getInputGate().getInputWires().get(1).getInputGate()!=null)
+            computeRecursively(wire.getInputGate().getInputWires().get(1));
+       else
+          wire.setValue(wire.getInputGate().computeOutput());
+        wire.setInputGate(null);
+
+    }
 }
