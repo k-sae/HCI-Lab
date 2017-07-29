@@ -9,6 +9,9 @@ public abstract class AndGate<T> extends Gate<T> {
         getInputWires().add(input1);
         getInputWires().add(input2);
         setOutput(output);
+        input1.setOutputGate(this);
+        input2.setOutputGate(this);
+        output.setInputGate(this);
     }
     @Override
     public T computeOutput() {

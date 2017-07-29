@@ -5,26 +5,26 @@ package CircuitEvaluator.Components;
  */
 public class Wire<T> {
 
-    private Gate<T> input;
-    private Gate<T> output;
-    //object so whatever the input we can chnage it later
+    private Gate<T> inputGate;
+    private Gate<T> outputGate;
+    //object so whatever the inputGate we can chnage it later
     private T value;
 
 
-    public Gate<T> getInput() {
-        return input;
+    public Gate<T> getInputGate() {
+        return inputGate;
     }
 
-    public void setInput(Gate<T> input) {
-        this.input = input;
+    public void setInputGate(Gate<T> inputGate) {
+        this.inputGate = inputGate;
     }
 
-    public Gate<T> getOutput() {
-        return output;
+    public Gate<T> getOutputGate() {
+        return outputGate;
     }
 
-    public void setOutput(Gate<T> output) {
-        this.output = output;
+    public void setOutputGate(Gate<T> outputGate) {
+        this.outputGate = outputGate;
     }
 
     public T getValue() {
