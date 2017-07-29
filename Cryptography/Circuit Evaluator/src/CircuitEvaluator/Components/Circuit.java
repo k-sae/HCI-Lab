@@ -21,17 +21,17 @@ public class Circuit<T> {
         }
         computeRecursively(start);
 
-        return null;
+        return (T) start.getValue();
     }
 
     private void computeRecursively(Wire<T> wire){
         if (wire.getInputGate().getInputWires().get(0).getInputGate()!=null)
             computeRecursively(wire.getInputGate().getInputWires().get(0));
-       else if (wire.getInputGate().getInputWires().get(1).getInputGate()!=null)
+    if (wire.getInputGate().getInputWires().get(1).getInputGate()!=null)
             computeRecursively(wire.getInputGate().getInputWires().get(1));
-       else
+
           wire.setValue(wire.getInputGate().computeOutput());
-        wire.setInputGate(null);
+        //wire.setInputGate(null);
 
     }
 }

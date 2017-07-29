@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class Gate<T> {
     private Wire<T> output;
     //ArrayList Bec some gates contain one and others two wires and maybe even more
-    private ArrayList<Wire<T>> inputWires;
+    private ArrayList<Wire<T>> inputWires=new ArrayList<Wire<T>>();
 
     public abstract T computeOutput();
 
