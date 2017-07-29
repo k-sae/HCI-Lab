@@ -6,7 +6,7 @@ package CircuitEvaluator.Components;
 public abstract class AndGate<T> extends Gate<T> {
     @Override
     public T computeOutput() {
-        return null;
+        return and(getInputWires().get(0), getInputWires().get(1));
     }
-    public abstract T and(T val1, T val2);
+    public abstract T and(Wire<T> val1, Wire<T> val2);
 }
