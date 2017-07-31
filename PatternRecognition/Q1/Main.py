@@ -12,6 +12,7 @@ dist = stats.truncnorm((a - mean) / stdDev, (b - mean) / stdDev, loc=mean, scale
 
 count = [0]*10
 values = [0]*10
+ratio = [0]*10
 for num in range(10):
     values[num] = dist.rvs(100000)
     # noinspection PyTypeChecker
@@ -19,13 +20,13 @@ for num in range(10):
         if val > limit:
             count[num] += 1
     print(count[num] / 100000)
+    ratio[num] = count[num] / 100000
 
-
-plt.hist(count,bins=25, normed=True, alpha=0.6)
+plt.hist(values ,bins=30, normed=True, alpha=0.6)
 plt.xlabel("value")
 plt.ylabel("frequency")
 xmin, xmax = plt.xlim()
-x = np.linspace(xmin, xmax, 100)
+x = np.linspace(20, 50, 100)
 p = stats.norm.pdf(x, mean, stdDev)
 plt.plot(x, p, 'k', linewidth=2)
 plt.show()
