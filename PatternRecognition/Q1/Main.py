@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import scipy.stats as stats
 
 a, b = 10, 50
@@ -11,7 +12,7 @@ dist = stats.truncnorm((a - mean) / stdDev, (b - mean) / stdDev, loc=mean, scale
 count = [0]
 values = [0]
 for num in range(10):
-    values[num] = dist.rvs(10000)
+    values[num] = dist.rvs(100000)
     # noinspection PyTypeChecker
     for val in values[num]:
         if val > limit:
@@ -19,6 +20,9 @@ for num in range(10):
     print(count[num])
     count.append(0)
     values.append(0)
-
+plt.hist(count, bins=100)
+plt.xlabel("value")
+plt.ylabel("frequency")
+plt.show()
 # all rand items stored in values
 # count holds the occurrence of 42
