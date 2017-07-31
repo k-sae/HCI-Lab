@@ -10,17 +10,17 @@ probability = stats.norm.sf(abs(z))
 
 dist = stats.truncnorm((a - mean) / stdDev, (b - mean) / stdDev, loc=mean, scale=stdDev)
 
-count = [0]
-values = [0]
+count = [0]*10
+values = [0]*10
 for num in range(10):
     values[num] = dist.rvs(100000)
     # noinspection PyTypeChecker
     for val in values[num]:
         if val > limit:
             count[num] += 1
-    print(count[num])
-    count.append(0)
-    values.append(0)
+    print(count[num] / 100000)
+
+
 plt.hist(count,bins=25, normed=True, alpha=0.6)
 plt.xlabel("value")
 plt.ylabel("frequency")
