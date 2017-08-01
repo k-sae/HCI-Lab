@@ -1,0 +1,7 @@
+//histogram 
+x = [1,2,4,9,16,25];
+ h = histogram(x);
+//pdf
+x = [1:2:4:9:16:25];
+ norm = normpdf(x,0,1);
+ plot(x,norm);
