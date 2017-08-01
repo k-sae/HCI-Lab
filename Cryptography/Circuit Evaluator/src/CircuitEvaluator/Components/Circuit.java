@@ -25,11 +25,12 @@ public class Circuit<T> {
     }
 
     private void computeRecursively(Wire<T> wire){
-        if (wire.getInputGate().getInputWires().get(0).getInputGate()!=null)
-            computeRecursively(wire.getInputGate().getInputWires().get(0));
-    if (wire.getInputGate().getInputWires().get(1).getInputGate()!=null)
-            computeRecursively(wire.getInputGate().getInputWires().get(1));
-
+        if(wire.getInputGate().getInputWires().get(0)!=null) {
+            if (wire.getInputGate().getInputWires().get(0).getInputGate() != null)
+                computeRecursively(wire.getInputGate().getInputWires().get(0));
+            if (wire.getInputGate().getInputWires().get(1).getInputGate() != null)
+                computeRecursively(wire.getInputGate().getInputWires().get(1));
+        }
           wire.setValue(wire.getInputGate().computeOutput());
         //wire.setInputGate(null);
 
