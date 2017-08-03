@@ -3,7 +3,7 @@ from sklearn import datasets
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 #Generate datasets
-X, y = datasets.make_classification(n_samples=50, n_classes=2, n_features=4)
+X, y = datasets.make_classification(n_samples=150, n_classes=3, n_features=4, shuffle=False, n_redundant=0, n_informative=3)
 
 iris = datasets.load_iris()
 #X = iris.data
