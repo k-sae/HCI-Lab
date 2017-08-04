@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.neighbors import KNeighborsClassifier
 from matplotlib.colors import ListedColormap
+from sklearn.naive_bayes import GaussianNB
 
 def toPairs(item1, item2, size):
     pairs = []
@@ -88,6 +89,12 @@ plt.ylim(yy.min(), yy.max())
 
 plt.show()
 
+
+bayes = GaussianNB()
+bayes.fit(x2Pairs, ys2)
+
+
 #Accuracy
-print("LDA Accuracy", lda.score(x2Pairs, ys2))
-print("KNN Accuracy", knn.score(x2Pairs, ys2))
+print("LDA Accuracy:  ", lda.score(x2Pairs, ys2))
+print("Bayes Accuracy:", bayes.score(x2Pairs, ys2))
+print("KNN Accuracy:  ", knn.score(x2Pairs, ys2))
