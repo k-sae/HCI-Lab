@@ -24,13 +24,14 @@ class2_x, class2_y = np.random.multivariate_normal(mean=mean2, cov=cov, size=siz
 y1 = [1]*size1
 y2 = [2]*size1
 
-class3 = np.random.multivariate_normal(mean=mean2, cov=cov, size=1000)
-class4 = np.random.multivariate_normal(mean=mean2, cov=cov, size=1000)
+size2 = 1000
+class3_x, class3_y = np.random.multivariate_normal(mean=mean2, cov=cov, size=size2).T
+class4_x, class4_y = np.random.multivariate_normal(mean=mean2, cov=cov, size=size2).T
 # part 2
 lda = LinearDiscriminantAnalysis()
 
-LinearDiscriminantAnalysis(n_components=2, priors=None)
-lda.fit(toPairs(class1_x, class1_y, size1), y1)
-test1 = lda.predict(class3 + class4)
+lda.fit(toPairs(class1_x, class1_y, size1) + toPairs(class2_x, class2_y, size1), y1 + y2)
+test1 = lda.predict(toPairs(class3_x, class3_y, 1000) + toPairs(class4_x, class4_y, size2))
 
-print()
+for i in range(len(test1)):
+    print(test1[i])
