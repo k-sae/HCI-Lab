@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.neighbors import KNeighborsClassifier
 from matplotlib.colors import ListedColormap
 from sklearn.naive_bayes import GaussianNB
@@ -93,8 +94,11 @@ plt.show()
 bayes = GaussianNB()
 bayes.fit(x2Pairs, ys2)
 
+qda = QuadraticDiscriminantAnalysis()
+qda.fit(x2Pairs, ys2)
 
 #Accuracy
 print("LDA Accuracy:  ", lda.score(x2Pairs, ys2))
+print("QDA Accuracy:  ", qda.score(x2Pairs, ys2))
 print("Bayes Accuracy:", bayes.score(x2Pairs, ys2))
 print("KNN Accuracy:  ", knn.score(x2Pairs, ys2))
