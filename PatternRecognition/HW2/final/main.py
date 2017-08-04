@@ -17,14 +17,14 @@ cov = [[4, 0], [0, 4]]
 size1 = 10
 class1_x, class1_y = np.random.multivariate_normal(mean=mean1, cov=cov, size=size1).T
 
-mean2 = [39, 39]
+mean2 = [42, 42]
 class2_x, class2_y = np.random.multivariate_normal(mean=mean2, cov=cov, size=size1).T
 
 y11 = [1]*size1
 y12 = [2]*size1
 ys1 = y11 + y12
 size2 = 1000
-class3_x, class3_y = np.random.multivariate_normal(mean=mean2, cov=cov, size=size2).T
+class3_x, class3_y = np.random.multivariate_normal(mean=mean1, cov=cov, size=size2).T
 class4_x, class4_y = np.random.multivariate_normal(mean=mean2, cov=cov, size=size2).T
 
 y21 = [1]*size2
@@ -37,6 +37,11 @@ x1Pairs = toPairs(class1_x, class1_y, size1) + toPairs(class2_x, class2_y, size1
 x2Pairs = toPairs(class3_x, class3_y, size2) + toPairs(class4_x, class4_y, size2)
 lda.fit(x1Pairs, ys1)
 test1 = lda.predict(x2Pairs)
+
+print("LDA:")
+for i in range(len(test1)):
+    print(test1[i])
+
 
 colors = ListedColormap(['#FF0000', '#0000FF'])
 
@@ -54,14 +59,31 @@ plt.ylabel("Input 2")
 plt.scatter(X2[:, 0], X2[:, 1], c=ys2, cmap=colors)
 plt.show()
 
-print("LDA:")
-for i in range(len(test1)):
-    print(test1[i])
 
 knn = KNeighborsClassifier()
 knn.fit(x1Pairs, ys1)
-knn.predict(x2Pairs)
+test2 = knn.predict(x2Pairs)
 
 print("KNN:")
-for i in range(len(test1)):
-    print(test1[i])
+for i in range(len(test2)):
+    print(test2[i])
+
+
+cmap_light = ListedColormap(['#FFAAAA', '#AAAAFF'])
+
+plt.title('KNN for 1000 observations')
+x_min, x_max = X2[:, 0].min() - 1, X2[:, 0].max() + 1
+y_min, y_max = X2[:, 1].min() - 1, X2[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, .02), np.arange(y_min, y_max, .02))
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+
+# Put the result into a color plot
+Z = Z.reshape(xx.shape)
+plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+
+# Plot also the training points
+plt.scatter(X2[:, 0], X2[:, 1], c=ys2, cmap=colors)
+plt.xlim(xx.min(), xx.max())
+plt.ylim(yy.min(), yy.max())
+
+plt.show()
