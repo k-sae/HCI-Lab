@@ -6,6 +6,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from matplotlib.colors import ListedColormap
 from sklearn.naive_bayes import GaussianNB
 
+
 def toPairs(item1, item2, size):
     pairs = []
     for i in range(size):
@@ -13,7 +14,6 @@ def toPairs(item1, item2, size):
     return pairs
 
 # part 1
-
 mean1 = [37, 37]
 cov = [[4, 0], [0, 4]]
 size1 = 10
@@ -32,6 +32,7 @@ class4_x, class4_y = np.random.multivariate_normal(mean=mean2, cov=cov, size=siz
 y21 = [1]*size2
 y22 = [2]*size2
 ys2 = y21 + y22
+
 # part 2
 lda = LinearDiscriminantAnalysis()
 
