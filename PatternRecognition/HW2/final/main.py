@@ -38,9 +38,9 @@ print("LDA:")
 for i in range(len(test1)):
     print(test1[i])
 
-gnb = KNeighborsClassifier()
-gnb.fit(x1Pairs, ys)
-gnb.predict(x2Pairs)
+knn = KNeighborsClassifier()
+knn.fit(x1Pairs, ys)
+knn.predict(x2Pairs)
 
 print("KNN:")
 for i in range(len(test1)):
