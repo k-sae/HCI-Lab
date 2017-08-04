@@ -87,3 +87,7 @@ plt.xlim(xx.min(), xx.max())
 plt.ylim(yy.min(), yy.max())
 
 plt.show()
+
+#Accuracy
+print("LDA Accuracy", lda.score(x2Pairs, ys2))
+print("KNN Accuracy", knn.score(x2Pairs, ys2))
