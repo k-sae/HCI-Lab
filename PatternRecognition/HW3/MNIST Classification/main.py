@@ -69,4 +69,19 @@ for i, (image, label) in enumerate(images_and_labels[:15]):
     plt.axis('off')
     plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
     plt.title('predicted %i' % prediction[0] + '\nexpected %i' % label)
+#plt.show()
+
+
+#LDA Classifier
+lda = LinearDiscriminantAnalysis()
+lda.fit(sample_images, sample_target)
+
+plt.figure(figsize=(7, 7))
+plt.suptitle("LDA Classifier", fontsize=20)
+for i, (image, label) in enumerate(images_and_labels[:15]):
+    prediction = lda.predict(x[i])
+    plt.subplot(3, 5, i + 1)
+    plt.axis('off')
+    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+    plt.title('predicted %i' % prediction[0] + '\nexpected %i' % label)
 plt.show()
