@@ -23,8 +23,8 @@ images, labels = mndata.load_training()
 images2, labels2 = mndata.load_testing()
 
 #Print the first digit
-print(labels[0])
-print(mndata.display(images[0]))
+#print(labels[0])
+#print(mndata.display(images[0]))
 
 #Convert the whole images to 2D array
 imgs = imagesTo2D(images, len(images))
@@ -58,12 +58,15 @@ sample_target = [y[i] for i in sample_index]
 valid_target = [y[i] for i in valid_index]
 
 #KNN Classifier
-knn = KNeighborsClassifier()
+k = 10
+knn = KNeighborsClassifier(n_neighbors=k)
 knn.fit(sample_images, sample_target)
 
 plt.figure(figsize=(7, 7))
 plt.suptitle("KNN Classifier", fontsize=20)
 for i, (image, label) in enumerate(images_and_labels[:15]):
+    k += ((i+1)*2) #K changes every loop
+    knn.n_neighbors = k
     prediction = knn.predict(x[i])
     plt.subplot(3, 5, i + 1)
     plt.axis('off')
